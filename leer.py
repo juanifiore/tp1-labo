@@ -52,7 +52,7 @@ for fila in posta.loc[:,'productos']:
         productos_lista = list(conjunto_productos)
 
 df_productos = pd.DataFrame(productos_lista,columns=['producto'])
-df_productos = sql^ 'SELECT DISTINCT * FROM df_productos ORDER BY producto'
+#df_productos = sql^ 'SELECT DISTINCT * FROM df_productos ORDER BY producto'
     
 # FUNCION PARA ARMAR LA TABLA DE LA RELACION ''PRODUCE''
 

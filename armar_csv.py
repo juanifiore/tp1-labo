@@ -20,6 +20,8 @@ ademas facilitaria las cosas en el caso de que una modificacion este mal o querr
 
 3) Los archivos originales que utilizaremos para crear los nuevos .csv fueron modificados mediante excel algunos datos pequeños 
 manualmente (detallados en cada caso), por lo que no concuerdan con los originales cargados en las paginas oficiales. Fueron descargados en abril-2023.
+
+4) Los caracteres de los datos de los .csv estaran en minuscula y sin tildes para evitar problemas de matching
 '''
 
 import pandas as pd
@@ -60,55 +62,19 @@ dicc_clases.to_csv('./3FN/diccionario_clases/dicc_clases.csv', index=False)
 # ARMAMOS LOS CSV CORREGIDOS Y EN 3FN DE diccionario_depto
 #==========================================================
 
+# Columnas de diccionario_depto: ['codigo_departamento_indec', 'nombre_departamento_indec',
+#       'id_provincia_indec', 'nombre_provincia_indec']
+
+# 1) Ponemos todos los caracteres en minuscula y sin tilde
+diccionario_depto = sql^ '''    SELECT LOWER(translate(codigo_departamento_indec,'ÁÉÍÓÚÜáéíóúü','AEIOUUaeiouu')) AS codigo_departamento_indec,
+                                    LOWER(translate(nombre_departamento_indec,'ÁÉÍÓÚÜáéíóúü','AEIOUUaeiouu')) AS nombre_departamento_indec,
+                                    LOWER(translate(id_provincia_indec,'ÁÉÍÓÚÜáéíóúü','AEIOUUaeiouu')) AS id_provincia_indec,
+                                    LOWER(translate(nombre_provincia_indec,'ÁÉÍÓÚÜáéíóúü','AEIOUUaeiouu')) AS nombre_provincia_indec
+                                FROM diccionario_depto
+                        '''
 # corregir 'caba'
 dic6 = {'caba' : 'ciudad autonoma de buenos aires'}
 diccionario_cod_depto2['nombre_departamento_indec'] = diccionario_cod_depto2['nombre_departamento_indec'].replace(dic6)
-
-
-
-#==========================================================
-# ARMAMOS LOS CSV CORREGIDOS Y EN 3FN DE padron
-#==========================================================
-
-# armamos diccionario a mano para reemplazar valores errados en 'departamento' por los correctos
-
-diccionario_errores = {'carmen de patagones': 'patagones', 'ciudad autonoma buenos aires': 'ciudad autonoma de buenos aires','pigue': 'saavedra', 'villalonga': 'patagones', 'mar del plata':'general pueyrredon', 'guemes':'general guemes', 'centenario':'confluencia', 'san pedro de jujuy':'san pedro', 'villa martelli': 'vicente lopez', 'san miguel de tucuman':'capital', 'salta': 'capital', 'salta capital':'capital', 'ticino':'general san martin', 'cordoba':'capital','cordoba capital':'capital', 'plottier':'confluencia' }
-
-padron_organico2['departamento']= padron_organico2['departamento'].replace(diccionario_errores)
-
-
-consultaSQL8 = """
-                SELECT *
-                FROM padron_organico2 as p1
-                WHERE departamento NOT IN (
-                    SELECT nombre_departamento_indec
-                    FROM diccionario_cod_depto2
-                    WHERE provincia_id = id_provincia_indec)
-                OR establecimiento = 'NC'
-            """
-deptosNoDicONC = sql ^ consultaSQL8
-consultaSQL10 = """
-                SELECT DISTINCT *
-                FROM deptosNoDicONC as d
-                WHERE departamento NOT IN (
-                SELECT DISTINCT municipio_nombre
-                FROM localidades_censales as l
-                WHERE l.provincia_id = d.provincia_id)
-            """
-deptosNoMun = sql ^ consultaSQL10
-
-#deptosNoMun son los deptos q no matchean con un depto del diccionario, ni con un municipio. son los q volariamos.
-consultaSQL9 = """
-                SELECT DISTINCT *
-                FROM padron_organico2
-                EXCEPT
-                SELECT DISTINCT *
-                FROM deptosNoMun
-            """
-padron_organico3 = sql ^ consultaSQL9
-
-
-
 
 
 
@@ -117,6 +83,18 @@ padron_organico3 = sql ^ consultaSQL9
 # ARMAMOS LOS CSV CORREGIDOS Y EN 3FN DE localidades 
 #==========================================================
 
+# Columnas de localidades: ['categoria', 'centroide_lat', 'centroide_lon', 'departamento_id',
+#       'departamento_nombre', 'fuente', 'funcion', 'id', 'municipio_id',
+#       'municipio_nombre', 'nombre', 'provincia_id', 'provincia_nombre']
+
+# 1) Ponemos los caracteres de las columnas a matchear en minuscula y sin tilde
+localidades = sql^ '''  SELECT categoria, centroide_lat, centroide_lon, departamento_id, 
+                        LOWER(translate(departamento_nombre,'ÁÉÍÓÚÜáéíóúü','AEIOUUaeiouu')) AS departamento_nombre,
+                        fuente, funcion, id, munidicipio_id,
+                        LOWER(translate(municipio_nombre,'ÁÉÍÓÚÜáéíóúü','AEIOUUaeiouu')) AS municipio_nombre,
+                        nombre, provincia_id, provincia_nombre
+                        FROM localidades
+                        '''
 # reemplazar valores NaN en 'funcion' por 'no_tiene'
 nulls = """
         SELECT   categoria, centroide_lat, centroide_lon, departamento_id, departamento_nombre, fuente,    CASE WHEN funcion IS NULL THEN 'no_tiene'
@@ -126,6 +104,108 @@ nulls = """
         FROM localidades_censales
     """
 localidades_censales = sql ^ nulls
+
+
+
+
+
+
+
+
+#==========================================================
+# ARMAMOS LOS CSV CORREGIDOS Y EN 3FN DE padron
+#==========================================================
+
+# Columnas de padron: ['pais_id', 'pais', 'provincia_id', 'provincia', 'departamento',
+#       'localidad', 'rubro', 'productos', 'categoria_id', 'categoria_desc',
+#       'Certificadora_id', 'certificadora_deno', 'razon_social',
+#       'establecimiento']
+
+# 1) Armamos diccionario a mano para reemplazar valores errados en 'departamento' por los correctos
+diccionario_errores = {'carmen de patagones': 'patagones', 'ciudad autonoma buenos aires': 'ciudad autonoma de buenos aires','pigue': 'saavedra', 'villalonga': 'patagones', 'mar del plata':'general pueyrredon', 'guemes':'general guemes', 'centenario':'confluencia', 'san pedro de jujuy':'san pedro', 'villa martelli': 'vicente lopez', 'san miguel de tucuman':'capital', 'salta': 'capital', 'salta capital':'capital', 'ticino':'general san martin', 'cordoba':'capital','cordoba capital':'capital', 'plottier':'confluencia' }
+
+# 2) Reemplazamos los valores usando el diccionario
+padron['departamento']= padron['departamento'].replace(diccionario_errores)
+
+# 3) Eliminamos valores 'NC' de la columna 'establecimiento'
+padron = sql^ '''SELECT * FROM padron WHERE establecimiento != 'NC' '''
+
+# 4) Eliminamos los departamentos que no se encuentren en el diccionario, tanto en la columna 'departamentos', 
+# como 'municipio_nombre'
+padron = sql^ '''
+                SELECT *
+                FROM padron p
+                WHERE p.departamento IN (
+                    SELECT nombre_departamento_indec
+                    FROM diccionario_depto d
+                    WHERE d.id_provincia_indec = p.provincia_id
+                    UNION
+                    SELECT municipio_nombre
+                    FROM localidades l
+                    WHERE l.provincia_id = p.provincia_id
+                )
+                '''
+
+# 5) Cambiamos los valores en la columna 'departamento' que sean de municipios, por sus respectivos departamentos
+# Primero creamos un DF que tenga los departamentos a reemplazar y su valor correspondiente
+deptos_muni = sql^  '''SELECT DISTINCT p.departamento AS municipio, l.departamento_nombre AS departamento
+                        FROM padron p
+                        INNER JOIN localidades l
+                        ON p.departamento = l.municipio_nombre AND p.provincia_id = l.provincia_id
+                        WHERE p.departamento != l.departamento_nombre
+                        '''
+
+# Creamos un diccionario con los municipios como clave y los departamento como valores a partir del DF 'deptos_muni'
+dicc_muni_depto = deptos_muni.set_index('municipio')['departamento'].to_dict()
+
+# Reemplazamos los valores usando el diccionario
+padron['departamento']= padron['departamento'].replace(dicc_muni_depto)
+
+# 6) Agregamos una columna 'id_depto' al .csv 'padron', joinneando con el .csv 'diccionario_depto'
+padron = sql^ '''   SELECT padron.*, d.codigo_departamento_indec AS id_depto 
+                                FROM padron
+                                INNER JOIN diccionario_depto d 
+                                ON d.nombre_departamento_indec = padron.departamento AND
+                                   d.id_provincia_indec = padron.provincia_id
+                        '''
+
+# 7) Armamos una tabla que se llame 'productos', que contenga como unica columna los productos
+# que producen todos los operadores organicos
+conjunto_productos = set()
+for fila in posta.loc[:,'productos']:       # recorremos la columna 'productos' 
+    if isinstance(fila, str):       
+        lista = fila.split(',')       # separamos la string en una lista con cada producto como elemento
+        for palabra in lista:
+            if palabra[0] == ' ':
+                palabra = palabra[1:]
+            conjunto_productos.add(palabra)     # añadimos cada producto de la lista anterior a un conjunto
+        productos_lista = list(conjunto_productos)      # pasamos el conjunto a una lista
+
+df_productos = pd.DataFrame(productos_lista,columns=['producto'])       # creamos el dataframe
+
+
+# 8) Creamos una nueva tabla llamada 'produce', que posee como columnas: ['razon_social', 'establecimiento', 'producto']
+# para poder poner en 1FN el .csv padron
+temp = sql^ ''' SELECT razon_social, establecimiento, productos FROM padron''' # creamos una tabla con las columnas que usaremos 
+
+produce_lista = []    # creamos una lista de listas, que luego convertiremos en DataFrame como la tabla 'produce'
+
+for i in range(posta.shape[0]):    # iteramos la tabla padron, cada 'padron[i]' es una fila
+    fila = tabla.iloc[i,:]      #asignamos la fila actual
+    if isinstance(fila['productos'], str):
+        productos = tabla.iloc[i,2].split(',')     # generamos una lista con los productos del establecimiento actual
+        for producto in productos:
+            if producto[0] == ' ':
+                producto = producto[1:]
+            prod_estab.append([fila['razon_social'],fila['establecimiento'],producto])  # agregamos cada lista [razon_social, establecimiento, producto] por iteracion
+
+produce = pd.DataFrame(produce_lista, columns=['razon_social','establecimiento','producto'])  # convertimos produce_lista en el DataFrame 'produce'
+
+
+# 9) Creamos la tabla principal en 3FN llamada 'padron_operadores', 
+# PK: ['establecimiento','razon_social']
+# Columnas: 
+padron_operadores = sql^ '''SELECT 
 
 
 
