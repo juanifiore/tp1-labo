@@ -21,7 +21,7 @@ ademas facilitaria las cosas en el caso de que una modificacion este mal o querr
 3) Los archivos originales que utilizaremos para crear los nuevos .csv fueron modificados mediante excel algunos datos pequeños 
 manualmente (detallados en cada caso), por lo que no concuerdan con los originales cargados en las paginas oficiales. Fueron descargados en abril-2023.
 
-4) Los caracteres de los datos de los .csv estaran en minuscula y sin tildes para evitar problemas de matching
+4) Los caracteres de las columnas de los .csv que usaremos para hacer JOIN estaran en minuscula y sin tildes para evitar problemas de matching
 '''
 
 import pandas as pd
@@ -72,9 +72,23 @@ diccionario_depto = sql^ '''    SELECT LOWER(translate(codigo_departamento_indec
                                     LOWER(translate(nombre_provincia_indec,'ÁÉÍÓÚÜáéíóúü','AEIOUUaeiouu')) AS nombre_provincia_indec
                                 FROM diccionario_depto
                         '''
-# corregir 'caba'
-dic6 = {'caba' : 'ciudad autonoma de buenos aires'}
-diccionario_cod_depto2['nombre_departamento_indec'] = diccionario_cod_depto2['nombre_departamento_indec'].replace(dic6)
+# 2) Creamos diccionario para reemplazar errores por su valor correcto
+diccionario_err_depto = {'caba' : 'ciudad autonoma de buenos aires'}
+diccionario_depto['nombre_departamento_indec'] = diccionario_depto['nombre_departamento_indec'].replace(diccionario_err_depto)
+
+# 3) Creamos tabla principal en 3FN 'diccionario_departamentos'
+# PK: ['id_depto']
+diccionario_departamentos = sql^ '''SELECT codigo_departamento_indec AS id_depto, 
+                                        nombre_departamento_indec AS departamento_nombre
+                                        id_provincia_indec AS id_provincia
+                                    FROM diccionario_depto '''
+diccionario_departamentos.to_csv('./3FN/diccionario_depto/diccionario_departamentos.csv', index=False)
+
+# 4) Creamos tabla secundaria 'provincias'
+# PK: ['id_provincia']
+provincias = sql^ '''   SELECT id_provincia_indec AS id_provincia, nombre_provincia_indec AS provincias_nombre
+                        FROM diccionario_depto '''
+provincias.to_csv('./3FN/diccionario_depto/provincias.csv',index=False)
 
 
 
@@ -87,28 +101,46 @@ diccionario_cod_depto2['nombre_departamento_indec'] = diccionario_cod_depto2['no
 #       'departamento_nombre', 'fuente', 'funcion', 'id', 'municipio_id',
 #       'municipio_nombre', 'nombre', 'provincia_id', 'provincia_nombre']
 
-# 1) Ponemos los caracteres de las columnas a matchear en minuscula y sin tilde
+# 1) Ponemos los caracteres de las columnas a matchear en minuscula y sin tilde, 
+# tambien cambiamos los valores NULL de la columna 'funcion' por el valor 'no_tiene'
 localidades = sql^ '''  SELECT categoria, centroide_lat, centroide_lon, departamento_id, 
                         LOWER(translate(departamento_nombre,'ÁÉÍÓÚÜáéíóúü','AEIOUUaeiouu')) AS departamento_nombre,
-                        fuente, funcion, id, munidicipio_id,
+                        fuente, 
+                        CASE WHEN funcion IS NULL THEN 'no_tiene' ELSE funcion,
+                        id, munidicipio_id,
                         LOWER(translate(municipio_nombre,'ÁÉÍÓÚÜáéíóúü','AEIOUUaeiouu')) AS municipio_nombre,
                         nombre, provincia_id, provincia_nombre
                         FROM localidades
                         '''
-# reemplazar valores NaN en 'funcion' por 'no_tiene'
-nulls = """
-        SELECT   categoria, centroide_lat, centroide_lon, departamento_id, departamento_nombre, fuente,    CASE WHEN funcion IS NULL THEN 'no_tiene'
-                   ELSE funcion
-                   END AS funcion ,
-                   id, municipio_id, municipio_nombre, nombre, provincia_id, provincia_nombre
-        FROM localidades_censales
-    """
-localidades_censales = sql ^ nulls
+# 2) Creamos diccionario para reemplazar errores por su valor correcto
+diccionario_errores_loc = ({"CABA": "Ciudad autónoma de Buenos Aires"})  
+localidades['departamento_nombre'] = localidades['departamento_nombre'].replace(diccionario_errores_loc) 
 
+# 3) Creamos tabla principal en 3FN 'localidades_censales'
+# PK: ['id']
+localidades_censales = sql^ ''' SELECT id, id_depto, municipio_id, nombre, funcion, categoria, centroide_lat, centroide_lon
+                                FROM localidades
+                            '''
+localidades_censales.to_csv('./3FN/localidades/localidades_censales.csv',index=False)
 
+# 4) Creamos tabla secundaria 'departamentos'
+# PK: ['id_depto']
+departamentos = sql^ '''SELECT departamento_id AS id_depto, departamento_nombre AS nombre_departamento, 
+                        provincia_id AS id_provincia
+                        FROM localidades'''
+departamentos.to_csv('./3FN/localidades/departamentos.csv',index=False)
 
+# 5) Creamos tabla secundaria 'municipios'
+# PK: ['municipio_id']
+municipios = sql^ '''SELECT municipio_id, municipio_nombre
+                        FROM localidades'''
+municipios.to_csv('./3FN/localidades/municipios.csv',index=False)
 
-
+# 6) Creamos tabla secundaria 'provincias'
+# PK: ['id_provincia']
+provincias = sql^ '''SELECT provincia_id AS id_provincia, provincia_nombre 
+                        FROM localidades'''
+provincias.to_csv('./3FN/localidades/provincias.csv',index=False)
 
 
 
@@ -121,11 +153,14 @@ localidades_censales = sql ^ nulls
 #       'Certificadora_id', 'certificadora_deno', 'razon_social',
 #       'establecimiento']
 
-# 1) Armamos diccionario a mano para reemplazar valores errados en 'departamento' por los correctos
-diccionario_errores = {'carmen de patagones': 'patagones', 'ciudad autonoma buenos aires': 'ciudad autonoma de buenos aires','pigue': 'saavedra', 'villalonga': 'patagones', 'mar del plata':'general pueyrredon', 'guemes':'general guemes', 'centenario':'confluencia', 'san pedro de jujuy':'san pedro', 'villa martelli': 'vicente lopez', 'san miguel de tucuman':'capital', 'salta': 'capital', 'salta capital':'capital', 'ticino':'general san martin', 'cordoba':'capital','cordoba capital':'capital', 'plottier':'confluencia' }
+# 1) Armamos diccionario a mano para reemplazar valores errados en 'departamento' y 'provincia' por los correctos
+diccionario_errores_depto = {'carmen de patagones': 'patagones', 'ciudad autonoma buenos aires': 'ciudad autonoma de buenos aires','pigue': 'saavedra', 'villalonga': 'patagones', 'mar del plata':'general pueyrredon', 'guemes':'general guemes', 'centenario':'confluencia', 'san pedro de jujuy':'san pedro', 'villa martelli': 'vicente lopez', 'san miguel de tucuman':'capital', 'salta': 'capital', 'salta capital':'capital', 'ticino':'general san martin', 'cordoba':'capital','cordoba capital':'capital', 'plottier':'confluencia' }
+
+diccionario_errores_prov = ({"TIERRA DEL FUEGO": "Tierra del Fuego, Antártida e Islas del Atlántico Sur"})
 
 # 2) Reemplazamos los valores usando el diccionario
-padron['departamento']= padron['departamento'].replace(diccionario_errores)
+padron['departamento']= padron['departamento'].replace(diccionario_errores_depto)
+padron['provincia'] = padron['provincia'].replace(diccionario_errores_prov)
 
 # 3) Eliminamos valores 'NC' de la columna 'establecimiento'
 padron = sql^ '''SELECT * FROM padron WHERE establecimiento != 'NC' '''
@@ -145,6 +180,33 @@ padron = sql^ '''
                     WHERE l.provincia_id = p.provincia_id
                 )
                 '''
+deptos_fuera_del_dicc = sql^ """
+                SELECT *
+                FROM padron as p1
+                WHERE departamento NOT IN (
+                    SELECT nombre_departamento_indec
+                    FROM diccionario_depto
+                    WHERE provincia_id = id_provincia_indec)
+            """
+
+deptos_fuera_de_municipio_y_dicc = sql^ """
+                SELECT DISTINCT *
+                FROM padron as d
+                WHERE departamento NOT IN (
+                SELECT DISTINCT municipio_nombre
+                FROM localidades as l
+                WHERE l.provincia_id = d.provincia_id)
+                UNION deptos_fuera_del_dicc
+            """
+
+padron = sql^ """
+                SELECT DISTINCT *
+                FROM padron
+                EXCEPT
+                SELECT DISTINCT *
+                FROM deptos_fuera_de_municipio_y_dicc
+            """
+
 
 # 5) Cambiamos los valores en la columna 'departamento' que sean de municipios, por sus respectivos departamentos
 # Primero creamos un DF que tenga los departamentos a reemplazar y su valor correspondiente
@@ -172,7 +234,8 @@ padron = sql^ '''   SELECT padron.*, d.codigo_departamento_indec AS id_depto
 # 7) Armamos una tabla que se llame 'productos', que contenga como unica columna los productos
 # que producen todos los operadores organicos
 conjunto_productos = set()
-for fila in posta.loc[:,'productos']:       # recorremos la columna 'productos' 
+productos_lista = []
+for fila in padron.loc[:,'productos']:       # recorremos la columna 'productos' 
     if isinstance(fila, str):       
         lista = fila.split(',')       # separamos la string en una lista con cada producto como elemento
         for palabra in lista:
@@ -182,6 +245,7 @@ for fila in posta.loc[:,'productos']:       # recorremos la columna 'productos'
         productos_lista = list(conjunto_productos)      # pasamos el conjunto a una lista
 
 df_productos = pd.DataFrame(productos_lista,columns=['producto'])       # creamos el dataframe
+df_productos.to_csv('./3FN/padron/produce.csv',index=False)
 
 
 # 8) Creamos una nueva tabla llamada 'produce', que posee como columnas: ['razon_social', 'establecimiento', 'producto']
@@ -200,16 +264,37 @@ for i in range(posta.shape[0]):    # iteramos la tabla padron, cada 'padron[i]' 
             prod_estab.append([fila['razon_social'],fila['establecimiento'],producto])  # agregamos cada lista [razon_social, establecimiento, producto] por iteracion
 
 produce = pd.DataFrame(produce_lista, columns=['razon_social','establecimiento','producto'])  # convertimos produce_lista en el DataFrame 'produce'
+produce.to_csv('./3FN/padron/produce.csv',index=False)
 
 
-# 9) Creamos la tabla principal en 3FN llamada 'padron_operadores', 
+# 9) Creamos la tabla principal en 3FN llamada 'padron_operadores' y la cargamos como .csv
 # PK: ['establecimiento','razon_social']
-# Columnas: 
-padron_operadores = sql^ '''SELECT 
+padron_operadores = sql^ '''SELECT DISTINCT establecimiento, razon_social, id_depto, localidad, rubro, categoria_id, Certificadora_id
+                            FROM padron '''
+padron_operadores.to_csv('./3FN/padron/padron_operadores.csv', index=False)
 
 
+# 10) Creamos tabla secundaria 'departamentos',
+# PK: ['id_depto']
+departamentos = sql^ '''SELECT DISTINCT id_depto, departamento AS departamento_nombre, provincia_id AS id_provincia
+                        FROM padron'''
+departamentos.to_csv('./3FN/padron/departamentos.csv',index=False)
 
+# 11) Creamos tabla secundaria 'certificadoras'
+# PK: ['certificadora_id']
+certificadoras = sql^ '''SELECT DISTINCT Certificadora_id, certificadora_deno FROM padron'''
+certificadoras.to_csv('./3FN/padron/certificadoras.csv',index=False)
 
+# 12) Creamos tabla secundaria 'paises'
+# PK: ['pais_id']
+paises = sql^ '''SELECT DISTINCT pais_id, pais FROM padron '''
+paises.to_csv('./3FN/padron/paises.csv',index=False)
+
+# 13) Creamos tabla secundaria 'categorias'
+# PK: ['categoria_id']
+categorias = sql^ '''SELECT DISTINCT categoria_id, categoria_desc FROM padron '''
+categorias.to_csv('./3FN/padron/categorias.csv',index=False)
+                                
 
 
 
@@ -222,16 +307,16 @@ padron_operadores = sql^ '''SELECT
 #borramos los -99 en salario
 salarios_median = sql^ '''SELECT * FROM salarios_median WHERE w_median != '-99' '''
 
-# creo tabla primaria 'salarios'
+# creamos tabla primaria 'salarios'
 salarios = sql^ ''' SELECT fecha, codigo_departamento_indec AS id_depto, w_median AS salario
                     FROM salarios_median
                 '''
 
-# creo tabla secundaria 'salario_departamentos'
-departamentos_salarios = sql^ ''' SELECT codigo_departamento_indec AS id_depto, id_provincia_indec AS id_provincia
+# creamos tabla secundaria 'salario_departamentos'
+departamentos_salarios = sql^ ''' SELECT DISTINCT codigo_departamento_indec AS id_depto, id_provincia_indec AS id_provincia
                                 FROM salarios_median
                             '''
-# cargo los .csv en 3FN:
+# cargamos los .csv en 3FN:
 salarios.to_csv('./3FN/salarios/salarios.csv', index=False)
 departamentos_salarios.to_csv('./3FN/salarios/departamentos_salarios.csv', index=False)
 

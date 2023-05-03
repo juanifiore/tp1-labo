@@ -23,8 +23,8 @@ diccionario_cod_depto = pd.read_csv('./diccionario_cod_depto.csv')
 #diccionario_cod_depto = pd.read_csv('./diccionario_cod_depto.csv')
 
 #o = sql^ ''' SELECT DISTINCT  provincia_id, departamento, p.establecimiento, razon_social FROM (select djfoer) p  padron_de_operadores_organicos_certificados p
- #               WHERE establecimiento != 'NC'
-  #              '''
+#               WHERE establecimiento != 'NC'
+#              '''
 
 #salario = sql^ '''SELECT * FROM w_median_depto_priv_clae2 WHERE w_median != -99 AND codigo_departamento_indec != 'NAN' AND id_provincia_indec != 'NAN' '''
 
