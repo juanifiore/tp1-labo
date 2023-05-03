@@ -1,87 +1,87 @@
 clave,clave_desc,letra
-1,"Agricultura, ganadería, caza y servicios relacionados",A
-2,Silvicultura y explotación forestal,A
-3,Pesca y acuicultura,A
-5,Extracción de carbón y lignito,B
-6,Extracción de petróleo crudo y gas natural,B
-7,Extracción de minerales metálicos,B
-8,Extracción de otros minerales,B
-9,Actividades de apoyo al petróleo y la minería,B
-10,Elaboración de productos alimenticios,C
-11,Elaboración de bebidas,C
-12,Elaboración de productos de tabaco,C
-13,Elaboración de productos textiles,C
-14,Elaboración de prendas de vestir,C
-15,Elaboración de productos de cuero y calzado,C
-16,Elaboración de productos de madera,C
-17,Elaboración de productos de papel,C
-18,Imprentas y editoriales,C
-19,Fabricación de productos de refinación de petróleo,C
-20,Fabricación de sustancias químicas,C
-21,Elaboracion de productos farmacéuticos,C
-22,Fabricación de productos de caucho y vidrio,C
-23,Fabricación de productos de vidrio y otros minerales no metálicos,C
-24,Fabricación de metales comunes,C
-25,"Fabricación de productos elaborados del metal, excepto maquinaria y equipo",C
-26,"Fabricación de productos de informática, de electrónica y de óptica",C
-27,Fabricación de equipo eléctrico,C
-28,Fabricación de maquinarias,C
-29,"Fabricación de vehículos automotores, remolques y semirremolques",C
-30,Fabricación de otros equipos de transporte,C
-31,Fabricación de muebles,C
-32,Otras industrias manufactureras,C
-33,Reparación e instalación de maquinaria y equipo,C
-35,"Suministro de electricidad, gas, vapor y aire acondicionado",D
-36,"Captación, tratamiento y distribución de agua",E
-37,Evacuación de aguas residuales,E
-38,"Recogida, tratamiento y eliminación de desechos; recuperación de materiales",E
-39,Descontaminación y otros servicios,E
-41,Construcción de edificios y partes,F
-42,Obras de ingeniería civil,F
-43,Actividades especializadas de construcción ,F
-45,Comercio al por mayor y al por menor y reparación de vehículos automotores y motos,G
-46,Comercio al por mayor excepto autos y motos,G
-47,Comercio al por menor excepto autos y motos,G
-49,Transporte terrestre y por tuberías,H
-50,Transporte acuático,H
-51,Transporte aéreo,H
-52,Almacenamiento y actividades de apoyo al transporte,H
-53,Servicio de correo y mensajería,H
-55,Servicios de alojamiento,I
-56,Servicios de expendio de alimentos y bebidas,I
-58,Edición,J
-59,Servicios audiovisuales,J
-60,Programación y transmisiones de TV y radio,J
-61,Telecomunicaciones,J
-62,"Servicios de programación, consultoría informática y actividades conexas",J
-63,Actividades de procesamiento de información,J
-64,Servicios financieros (excepto seguros y pensiones),K
-65,"Servicios de seguros, reaseguros y pensiones",K
-66,Servicios auxiliares de la actividad financiera y de seguros,K
-68,Servicios inmobiliarios,L
-69,Servicios jurídicos y de contabilidad,M
-70,Servicios y asesoramiento de dirección y gestión empresarial,M
-71,Servicios de arquitectura e ingeniería,M
-72,Investigación y desarrollo científico,M
-73,Servicios de publicidad e investigación de mercado,M
-74,"Otras actividades profesionales, científicas y técnicas",M
-75,Servicios veterinarios,M
-77,Alquiler y arrendamiento,N
-78,Servicios de obtención y dotación de personal,N
-79,"Agencias de viajes, servicios de reservas y actividades conexas",N
-80,Actividades de investigación y seguridad,N
-81,Servicios a edificios y actividades de jardinería,N
-82,Actividades administrativas y de apoyo a oficinas y empresas,N
-84,"Administración pública, defensa y seguridad social",O
-85,Enseñanza,P
-86,Servicios de salud humana,Q
-87,Actividades de atención en instituciones,Q
-88,Actividades de atención sin alojamiento,Q
-90,Servicios artísticos y de espectáculos,R
-91,"Servicios de bibliotecas, archivos y museos y  servicios culturales n.c.p.",R
-92,Juegos de azar y apuestas,R
-93,"Actividades deportivas, recreativas y de entretenimiento",R
-94,Servicios de asociaciones,S
-95,Reparación de computadoras y equipos de uso doméstico,S
-96,Otros servicios personales,S
-999,Otros sectores,T
+1,"agricultura, ganaderia, caza y servicios relacionados",a
+2,silvicultura y explotacion forestal,a
+3,pesca y acuicultura,a
+5,extraccion de carbon y lignito,b
+6,extraccion de petroleo crudo y gas natural,b
+7,extraccion de minerales metalicos,b
+8,extraccion de otros minerales,b
+9,actividades de apoyo al petroleo y la mineria,b
+10,elaboracion de productos alimenticios,c
+11,elaboracion de bebidas,c
+12,elaboracion de productos de tabaco,c
+13,elaboracion de productos textiles,c
+14,elaboracion de prendas de vestir,c
+15,elaboracion de productos de cuero y calzado,c
+16,elaboracion de productos de madera,c
+17,elaboracion de productos de papel,c
+18,imprentas y editoriales,c
+19,fabricacion de productos de refinacion de petroleo,c
+20,fabricacion de sustancias quimicas,c
+21,elaboracion de productos farmaceuticos,c
+22,fabricacion de productos de caucho y vidrio,c
+23,fabricacion de productos de vidrio y otros minerales no metalicos,c
+24,fabricacion de metales comunes,c
+25,"fabricacion de productos elaborados del metal, excepto maquinaria y equipo",c
+26,"fabricacion de productos de informatica, de electronica y de optica",c
+27,fabricacion de equipo electrico,c
+28,fabricacion de maquinarias,c
+29,"fabricacion de vehiculos automotores, remolques y semirremolques",c
+30,fabricacion de otros equipos de transporte,c
+31,fabricacion de muebles,c
+32,otras industrias manufactureras,c
+33,reparacion e instalacion de maquinaria y equipo,c
+35,"suministro de electricidad, gas, vapor y aire acondicionado",d
+36,"captacion, tratamiento y distribucion de agua",e
+37,evacuacion de aguas residuales,e
+38,"recogida, tratamiento y eliminacion de desechos; recuperacion de materiales",e
+39,descontaminacion y otros servicios,e
+41,construccion de edificios y partes,f
+42,obras de ingenieria civil,f
+43,actividades especializadas de construccion ,f
+45,comercio al por mayor y al por menor y reparacion de vehiculos automotores y motos,g
+46,comercio al por mayor excepto autos y motos,g
+47,comercio al por menor excepto autos y motos,g
+49,transporte terrestre y por tuberias,h
+50,transporte acuatico,h
+51,transporte aereo,h
+52,almacenamiento y actividades de apoyo al transporte,h
+53,servicio de correo y mensajeria,h
+55,servicios de alojamiento,i
+56,servicios de expendio de alimentos y bebidas,i
+58,edicion,j
+59,servicios audiovisuales,j
+60,programacion y transmisiones de tv y radio,j
+61,telecomunicaciones,j
+62,"servicios de programacion, consultoria informatica y actividades conexas",j
+63,actividades de procesamiento de informacion,j
+64,servicios financieros (excepto seguros y pensiones),k
+65,"servicios de seguros, reaseguros y pensiones",k
+66,servicios auxiliares de la actividad financiera y de seguros,k
+68,servicios inmobiliarios,l
+69,servicios juridicos y de contabilidad,m
+70,servicios y asesoramiento de direccion y gestion empresarial,m
+71,servicios de arquitectura e ingenieria,m
+72,investigacion y desarrollo cientifico,m
+73,servicios de publicidad e investigacion de mercado,m
+74,"otras actividades profesionales, cientificas y tecnicas",m
+75,servicios veterinarios,m
+77,alquiler y arrendamiento,n
+78,servicios de obtencion y dotacion de personal,n
+79,"agencias de viajes, servicios de reservas y actividades conexas",n
+80,actividades de investigacion y seguridad,n
+81,servicios a edificios y actividades de jardineria,n
+82,actividades administrativas y de apoyo a oficinas y empresas,n
+84,"administracion publica, defensa y seguridad social",o
+85,enseñanza,p
+86,servicios de salud humana,q
+87,actividades de atencion en instituciones,q
+88,actividades de atencion sin alojamiento,q
+90,servicios artisticos y de espectaculos,r
+91,"servicios de bibliotecas, archivos y museos y  servicios culturales n.c.p.",r
+92,juegos de azar y apuestas,r
+93,"actividades deportivas, recreativas y de entretenimiento",r
+94,servicios de asociaciones,s
+95,reparacion de computadoras y equipos de uso domestico,s
+96,otros servicios personales,s
+999,otros sectores,t

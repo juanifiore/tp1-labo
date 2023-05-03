@@ -3,15 +3,15 @@ import os
 from inline_sql import sql
 import chardet
 
-with open('./localidades-censales.csv', 'rb') as f:
-    tipo = chardet.detect(f.read())
-
-with open('./padron-de-operadores-organicos-certificados.csv', 'rb') as f:
-    tipo1 = chardet.detect(f.read())
+#with open('./localidades-censales.csv', 'rb') as f:
+#    tipo = chardet.detect(f.read())
+#
+#with open('./padron-de-operadores-organicos-certificados.csv', 'rb') as f:
+#    tipo1 = chardet.detect(f.read())
     
-localidades_censales = pd.read_csv('./localidades-censales.csv',encoding=tipo['encoding'])
-#w_median_depto_priv_clae2 = pd.read_csv('./w_median_depto_priv_clae2.csv')
-padron_de_operadores_organicos_certificados = pd.read_csv('./padron-de-operadores-organicos-certificados.csv',encoding=tipo1['encoding'])
+localidades_censales = pd.read_csv('./localidades-censales.csv')
+w_median_depto_priv_clae2 = pd.read_csv('./w_median_depto_priv_clae2.csv')
+padron_de_operadores_organicos_certificados = pd.read_csv('./padron-de-operadores-organicos-certificados.csv')
 diccionario_clae2 = pd.read_csv('./diccionario_clae2.csv')
 diccionario_cod_depto = pd.read_csv('./diccionario_cod_depto.csv')
 
@@ -44,7 +44,7 @@ conjunto_productos = set()
 
 for fila in posta.loc[:,'productos']:
     if isinstance(fila, str):
-        lista = fila.split(',')
+        lista = fila.split(',' or ' Y ' or '+' or '-' or '?')
         for palabra in lista:
             if palabra[0] == ' ':
                 palabra = palabra[1:]
@@ -52,6 +52,7 @@ for fila in posta.loc[:,'productos']:
         productos_lista = list(conjunto_productos)
 
 df_productos = pd.DataFrame(productos_lista,columns=['producto'])
+df_productos = sql^ 'SELECT DISTINCT * FROM df_productos ORDER BY producto'
     
 # FUNCION PARA ARMAR LA TABLA DE LA RELACION ''PRODUCE''
 
@@ -63,7 +64,7 @@ prod_estab = []
 for i in range(posta.shape[0]):    # itero la tabla padron, cada padron[i] es una fila
     fila = tabla.iloc[i,:]
     if isinstance(fila['productos'], str):
-        productos = tabla.iloc[i,2].split(',')     # re
+        productos = tabla.iloc[i,2].split(',' or '-' or '+' or ' Y ')     # re
         for producto in productos:
             if producto[0] == ' ':
                 producto = producto[1:]
@@ -83,9 +84,9 @@ tabla_con_id_depto = sql^ '''   SELECT posta.*, d.codigo_departamento_indec AS c
 
     
 
-
-
-
+t = sql^ 'SELECT DISTINCT certificadora_id,categoria_id, razon_social FROM padron_de_operadores_organicos_certificados'
+y = sql^ 'SELECT DISTINCT establecimiento, razon_social FROM padron_de_operadores_organicos_certificados'
+df_productos.to_csv('./productos.csv')
 
 
 
