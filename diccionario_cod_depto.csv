@@ -1,5 +1,5 @@
 codigo_departamento_indec,nombre_departamento_indec,id_provincia_indec,nombre_provincia_indec
-2000,CABA,2,CABA
+2000,Ciudad Autónoma de Buenos Aires,2,Ciudad Autónoma de Buenos Aires
 6007,Adolfo Alsina,6,Buenos Aires
 6014,Adolfo Gonzales Chaves,6,Buenos Aires
 6021,Alberti,6,Buenos Aires
@@ -226,7 +226,7 @@ codigo_departamento_indec,nombre_departamento_indec,id_provincia_indec,nombre_pr
 22154,Sargento Cabral,22,Chaco
 22161,Tapenagá,22,Chaco
 22168,25 de Mayo,22,Chaco
-26007,Biedma,26,Chubut
+26007,Viedma ,26,Chubut
 26014,Cushamen,26,Chubut
 26021,Escalante,26,Chubut
 26028,Florentino Ameghino,26,Chubut
@@ -396,6 +396,7 @@ codigo_departamento_indec,nombre_departamento_indec,id_provincia_indec,nombre_pr
 66049,General Güemes,66,Salta
 66056,General José de San Martín,66,Salta
 66063,Guachipas,66,Salta
+66077,La Caldera,66,Salta
 66070,Iruya,66,Salta
 66084,La Candelaria,66,Salta
 66091,La Poma,66,Salta
@@ -507,5 +508,6 @@ codigo_departamento_indec,nombre_departamento_indec,id_provincia_indec,nombre_pr
 90105,Tafí Viejo,90,Tucuman
 90112,Trancas,90,Tucuman
 90119,Yerba Buena,90,Tucuman
-94007,Río Grande/Tolhuin,94,Tierra Del Fuego
+94007,Tolhuin,94,Tierra Del Fuego
+94008,Rio Grande ,94,Tierra Del Fuego
 94014,Ushuaia,94,Tierra Del Fuego
