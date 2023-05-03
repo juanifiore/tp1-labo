@@ -79,7 +79,7 @@ diccionario_depto['nombre_departamento_indec'] = diccionario_depto['nombre_depar
 # 3) Creamos tabla principal en 3FN 'diccionario_departamentos'
 # PK: ['id_depto']
 diccionario_departamentos = sql^ '''SELECT codigo_departamento_indec AS id_depto, 
-                                        nombre_departamento_indec AS departamento_nombre
+                                        nombre_departamento_indec AS departamento_nombrei,
                                         id_provincia_indec AS id_provincia
                                     FROM diccionario_depto '''
 diccionario_departamentos.to_csv('./3FN/diccionario_depto/diccionario_departamentos.csv', index=False)
@@ -106,8 +106,8 @@ provincias.to_csv('./3FN/diccionario_depto/provincias.csv',index=False)
 localidades = sql^ '''  SELECT categoria, centroide_lat, centroide_lon, departamento_id, 
                         LOWER(translate(departamento_nombre,'ÁÉÍÓÚÜáéíóúü','AEIOUUaeiouu')) AS departamento_nombre,
                         fuente, 
-                        CASE WHEN funcion IS NULL THEN 'no_tiene' ELSE funcion,
-                        id, munidicipio_id,
+                        CASE WHEN funcion IS NULL THEN 'no_tiene' ELSE funcion END AS funcion,
+                        id, municipio_id,
                         LOWER(translate(municipio_nombre,'ÁÉÍÓÚÜáéíóúü','AEIOUUaeiouu')) AS municipio_nombre,
                         nombre, provincia_id, provincia_nombre
                         FROM localidades
@@ -118,7 +118,7 @@ localidades['departamento_nombre'] = localidades['departamento_nombre'].replace(
 
 # 3) Creamos tabla principal en 3FN 'localidades_censales'
 # PK: ['id']
-localidades_censales = sql^ ''' SELECT id, id_depto, municipio_id, nombre, funcion, categoria, centroide_lat, centroide_lon
+localidades_censales = sql^ ''' SELECT id, departamento_id AS id_depto, municipio_id, nombre, funcion, categoria, centroide_lat, centroide_lon
                                 FROM localidades
                             '''
 localidades_censales.to_csv('./3FN/localidades/localidades_censales.csv',index=False)
@@ -153,6 +153,17 @@ provincias.to_csv('./3FN/localidades/provincias.csv',index=False)
 #       'Certificadora_id', 'certificadora_deno', 'razon_social',
 #       'establecimiento']
 
+# Ponemos las columnas que nececitamos matchear en minusculas y sin tildes
+padron = sql^ '''   SELECT pais_id, pais, provincia_id,
+                    LOWER(translate(provincia,'ÁÉÍÓÚÜáéíóúü','AEIOUUaeiouu')) AS provincia, 
+                    LOWER(translate(departamento,'ÁÉÍÓÚÜáéíóúü','AEIOUUaeiouu')) AS departamento, 
+                    localidad, rubro,
+                    LOWER(translate(productos,'ÁÉÍÓÚÜáéíóúü','AEIOUUaeiouu')) AS productos, 
+                    categoria_id, categoria_desc, Certificadora_id, certificadora_deno,
+                    LOWER(translate(razon_social,'ÁÉÍÓÚÜáéíóúü','AEIOUUaeiouu')) AS razon_social, 
+                    LOWER(translate(establecimiento,'ÁÉÍÓÚÜáéíóúü','AEIOUUaeiouu')) AS establecimiento, 
+                    FROM padron '''
+
 # 1) Armamos diccionario a mano para reemplazar valores errados en 'departamento' y 'provincia' por los correctos
 diccionario_errores_depto = {'carmen de patagones': 'patagones', 'ciudad autonoma buenos aires': 'ciudad autonoma de buenos aires','pigue': 'saavedra', 'villalonga': 'patagones', 'mar del plata':'general pueyrredon', 'guemes':'general guemes', 'centenario':'confluencia', 'san pedro de jujuy':'san pedro', 'villa martelli': 'vicente lopez', 'san miguel de tucuman':'capital', 'salta': 'capital', 'salta capital':'capital', 'ticino':'general san martin', 'cordoba':'capital','cordoba capital':'capital', 'plottier':'confluencia' }
 
@@ -167,21 +178,9 @@ padron = sql^ '''SELECT * FROM padron WHERE establecimiento != 'NC' '''
 
 # 4) Eliminamos los departamentos que no se encuentren en el diccionario, tanto en la columna 'departamentos', 
 # como 'municipio_nombre'
-padron = sql^ '''
-                SELECT *
-                FROM padron p
-                WHERE p.departamento IN (
-                    SELECT nombre_departamento_indec
-                    FROM diccionario_depto d
-                    WHERE d.id_provincia_indec = p.provincia_id
-                    UNION
-                    SELECT municipio_nombre
-                    FROM localidades l
-                    WHERE l.provincia_id = p.provincia_id
-                )
-                '''
+
 deptos_fuera_del_dicc = sql^ """
-                SELECT *
+                SELECT DISTINCT *
                 FROM padron as p1
                 WHERE departamento NOT IN (
                     SELECT nombre_departamento_indec
@@ -196,7 +195,8 @@ deptos_fuera_de_municipio_y_dicc = sql^ """
                 SELECT DISTINCT municipio_nombre
                 FROM localidades as l
                 WHERE l.provincia_id = d.provincia_id)
-                UNION deptos_fuera_del_dicc
+                UNION ( SELECT * FROM deptos_fuera_del_dicc)
+              
             """
 
 padron = sql^ """
@@ -254,14 +254,14 @@ temp = sql^ ''' SELECT razon_social, establecimiento, productos FROM padron''' #
 
 produce_lista = []    # creamos una lista de listas, que luego convertiremos en DataFrame como la tabla 'produce'
 
-for i in range(posta.shape[0]):    # iteramos la tabla padron, cada 'padron[i]' es una fila
-    fila = tabla.iloc[i,:]      #asignamos la fila actual
+for i in range(padron.shape[0]):    # iteramos la tabla padron, cada 'padron[i]' es una fila
+    fila = temp.iloc[i,:]      #asignamos la fila actual
     if isinstance(fila['productos'], str):
-        productos = tabla.iloc[i,2].split(',')     # generamos una lista con los productos del establecimiento actual
+        productos = temp.iloc[i,2].split(',')     # generamos una lista con los productos del establecimiento actual
         for producto in productos:
             if producto[0] == ' ':
                 producto = producto[1:]
-            prod_estab.append([fila['razon_social'],fila['establecimiento'],producto])  # agregamos cada lista [razon_social, establecimiento, producto] por iteracion
+            produce_lista.append([fila['razon_social'],fila['establecimiento'],producto])  # agregamos cada lista [razon_social, establecimiento, producto] por iteracion
 
 produce = pd.DataFrame(produce_lista, columns=['razon_social','establecimiento','producto'])  # convertimos produce_lista en el DataFrame 'produce'
 produce.to_csv('./3FN/padron/produce.csv',index=False)

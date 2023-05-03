@@ -88,7 +88,19 @@ t = sql^ 'SELECT DISTINCT certificadora_id,categoria_id, razon_social FROM padro
 y = sql^ 'SELECT DISTINCT establecimiento, razon_social FROM padron_de_operadores_organicos_certificados'
 df_productos.to_csv('./productos.csv')
 
-
+padron = sql^ '''
+                SELECT *
+                FROM padron p
+                WHERE p.departamento IN (
+                    SELECT nombre_departamento_indec
+                    FROM diccionario_depto d
+                    WHERE d.id_provincia_indec = p.provincia_id
+                    UNION
+                    SELECT municipio_nombre
+                    FROM localidades l
+                    WHERE l.provincia_id = p.provincia_id
+                )
+                '''
 
 a = ['bananá', 'perá', 'pédo', 'bóca']
 
