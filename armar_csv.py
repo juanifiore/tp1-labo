@@ -27,11 +27,11 @@ manualmente (detallados en cada caso), por lo que no concuerdan con los original
 import pandas as pd
 from inline_sql import sql
 
-localidades = pd.read_csv('./localidades-censales.csv')
-salarios_median = pd.read_csv('./w_median_depto_priv_clae2.csv')
-padron = pd.read_csv('./padron-de-operadores-organicos-certificados.csv')
-diccionario_clases = pd.read_csv('./diccionario_clae2.csv')
-diccionario_depto = pd.read_csv('./diccionario_cod_depto.csv')
+localidades = pd.read_csv('./TablasOriginales/localidades-censales.csv')
+salarios_median = pd.read_csv('./TablasOriginales/w_median_depto_priv_clae2.csv')
+padron = pd.read_csv('./TablasOriginales/padron-de-operadores-organicos-certificados.csv')
+diccionario_clases = pd.read_csv('./TablasOriginales/diccionario_clae2.csv')
+diccionario_depto = pd.read_csv('./TablasOriginales/diccionario_cod_depto.csv')
 
 #==========================================================
 # ARMAMOS LOS CSV CORREGIDOS Y EN 3FN DE diccionario_clases
@@ -55,7 +55,9 @@ letra = sql^ 'SELECT DISTINCT letra, letra_desc FROM diccionario_clases'
 
 # cargamos los nuevo df a csv
 letra.to_csv('./3FN/diccionario_clases/letra.csv', index=False)
+letra.to_csv('./TablasLimpias/letra.csv', index=False)
 dicc_clases.to_csv('./3FN/diccionario_clases/dicc_clases.csv', index=False)
+dicc_clases.to_csv('./TablasLimpias/dicc_clases.csv', index=False)
 
 
 #==========================================================
@@ -78,17 +80,19 @@ diccionario_depto['nombre_departamento_indec'] = diccionario_depto['nombre_depar
 
 # 3) Creamos tabla principal en 3FN 'diccionario_departamentos'
 # PK: ['id_depto']
-diccionario_departamentos = sql^ '''SELECT codigo_departamento_indec AS id_depto, 
-                                        nombre_departamento_indec AS departamento_nombrei,
+diccionario_departamentos = sql^ '''SELECT DISTINCT codigo_departamento_indec AS id_depto, 
+                                        nombre_departamento_indec AS departamento_nombre,
                                         id_provincia_indec AS id_provincia
                                     FROM diccionario_depto '''
 diccionario_departamentos.to_csv('./3FN/diccionario_depto/diccionario_departamentos.csv', index=False)
+diccionario_departamentos.to_csv('./TablasLimpias/diccionario_departamentos.csv', index=False)
 
 # 4) Creamos tabla secundaria 'provincias'
 # PK: ['id_provincia']
-provincias = sql^ '''   SELECT id_provincia_indec AS id_provincia, nombre_provincia_indec AS provincias_nombre
+provincias = sql^ '''   SELECT DISTINCT id_provincia_indec AS id_provincia, nombre_provincia_indec AS provincias_nombre
                         FROM diccionario_depto '''
 provincias.to_csv('./3FN/diccionario_depto/provincias.csv',index=False)
+provincias.to_csv('./TablasLimpias/provincias.csv',index=False)
 
 
 
@@ -122,6 +126,7 @@ localidades_censales = sql^ ''' SELECT DISTINCT id, departamento_id AS id_depto,
                                 FROM localidades
                             '''
 localidades_censales.to_csv('./3FN/localidades/localidades_censales.csv',index=False)
+localidades_censales.to_csv('./TablasLimpias/localidades_censales.csv',index=False)
 
 # 4) Creamos tabla secundaria 'departamentos'
 # PK: ['id_depto']
@@ -135,6 +140,7 @@ departamentos.to_csv('./3FN/localidades/departamentos.csv',index=False)
 municipios = sql^ '''SELECT DISTINCT municipio_id, municipio_nombre
                         FROM localidades'''
 municipios.to_csv('./3FN/localidades/municipios.csv',index=False)
+municipios.to_csv('./TablasLimpias/municipios.csv',index=False)
 
 # 6) Creamos tabla secundaria 'provincias'
 # PK: ['id_provincia']
@@ -175,7 +181,7 @@ padron['departamento']= padron['departamento'].replace(diccionario_errores_depto
 padron['provincia'] = padron['provincia'].replace(diccionario_errores_prov)
 
 # 3) Eliminamos valores 'NC' de la columna 'establecimiento'
-padron = sql^ '''SELECT * FROM padron WHERE establecimiento != 'NC' '''
+padron = sql^ '''SELECT * FROM padron WHERE establecimiento != 'nc' '''
 
 # 4) Cambiamos los valores en la columna 'departamento' que sean de municipios, por sus respectivos departamentos
 # Primero creamos un DF que tenga los departamentos a reemplazar y su valor correspondiente
@@ -229,6 +235,7 @@ for fila in padron.loc[:,'productos']:       # recorremos la columna 'productos'
 
 df_productos = pd.DataFrame(productos_lista,columns=['producto'])       # creamos el dataframe
 df_productos.to_csv('./3FN/padron/productos.csv',index=False)
+df_productos.to_csv('./TablasLimpias/productos.csv',index=False)
 
 
 # 8) Creamos una nueva tabla llamada 'produce', que posee como columnas: ['razon_social', 'establecimiento', 'producto']
@@ -248,83 +255,93 @@ for i in range(padron.shape[0]):    # iteramos la tabla padron, cada 'padron[i]'
 
 produce = pd.DataFrame(produce_lista, columns=['razon_social','establecimiento','producto'])  # convertimos produce_lista en el DataFrame 'produce'
 produce.to_csv('./3FN/padron/produce.csv',index=False)
+produce.to_csv('./TablasLimpias/produce.csv',index=False)
 
-# 7) Armamos una tabla que se llame 'rubros', que contenga como unica columna los rubros
-# que producen todos los operadores organicos
+# 9) Armamos una tabla que se llame 'rubros', que contenga como unica columna los rubros a los cuales puede pertenecer un establecimiento determinado
+
 conjunto_rubros = set()
 rubros_lista = []
-for fila in padron.loc[:,'rubro']:       # recorremos la columna 'rubros' 
-    if isinstance(fila, str):       
-        if len(fila) > 0 and fila[0] == ' ':
-            fila = fila[1:]
-        rep = ['/',' y ',';','elaboracion de']
-        fila.replace('jugos concentrados', 'jugo concentrado')
+for fila in padron.loc[:,'rubro']:       # recorremos la columna 'productos'
+    if isinstance(fila, str):
+        rep = ['/', ' y ', ';', '.', 'elaboracion de ']
         for c in rep:
             fila = fila.replace(c,',')
         lista = fila.split(',')       # separamos la string en una lista con cada rubro como elemento
         for palabra in lista:
             if len(palabra) > 0 and palabra[0] == ' ':
                 palabra = palabra[1:]
-            conjunto_rubros.add(palabra)     # añadimos cada rubro de la lista anterior a un conjunto
-        rubros_lista = list(conjunto_rubros)      # pasamos el conjunto a una lista
+            if len(palabra) > 0 and palabra[-1] == ' ':
+                palabra = palabra[0:len(palabra)-1]
+            conjunto_rubros.add(palabra)         # añadimos cada rubro de la lista anterior a un conjunto
+rubros_lista = list(conjunto_rubros)      # pasamos el conjunto a una lista
+       
+df_rubros = pd.DataFrame(rubros_lista,columns=['rubros'])       # creamos el dataframe
+# modificamos a mano los datos mal cargados
+df_rubros['rubros'] = df_rubros['rubros'].replace('agicultura', 'agricultura')
 
-df_rubros = pd.DataFrame(rubros_lista,columns=['rubro'])       # creamos el dataframe
 df_rubros.to_csv('./3FN/padron/rubros.csv',index=False)
+df_rubros.to_csv('./TablasLimpias/rubros.csv',index=False)
 
 
-# 8) Creamos una nueva tabla llamada 'rubro', que posee como columnas: ['razon_social', 'establecimiento', 'rubro']
+# 10) Creamos una nueva tabla llamada 'establecimiento_rubro', que posee como columnas: ['razon_social', 'establecimiento', 'rubros']
 # para poder poner en 1FN el .csv padron
-temp = sql^ ''' SELECT razon_social, establecimiento, rubro FROM padron''' # creamos una tabla con las columnas que usaremos 
 
-rubro_lista = []    # creamos una lista de listas, que luego convertiremos en DataFrame como la tabla 'rubro'
+temp = sql^ ''' SELECT razon_social, establecimiento, rubro FROM padron''' # creamos una tabla con las columnas que usaremos
+
+establecimiento_rubro_lista = []    # creamos una lista de listas, que luego convertiremos en DataFrame como la tabla 'establecimiento_rubro'
 
 for i in range(padron.shape[0]):    # iteramos la tabla padron, cada 'padron[i]' es una fila
     fila = temp.iloc[i,:]      #asignamos la fila actual
-    if isinstance(fila, str):       
-            if len(fila['rubro']) > 0 and fila['rubro'][0] == ' ':
-                fila['rubro'] = fila['rubro'][1:]
-            rep = ['/',' y ',';','elaboracion de']
-            fila['rubro'].replace('jugos concentrados', 'jugo concentrado')
-            for c in rep:
-                fila['rubro'] = fila['rubro'].replace(c,',')
-            lista = temp.iloc[i,2].split(',')     # generamos una lista con los productos del establecimiento actual
-            for rubro in lista:
-                if len(rubro) > 0 and rubro[0] == ' ':
-                    rubro = rubro[1:]
-            rubro_lista.append([fila['razon_social'],fila['establecimiento'],rubro])  # agregamos cada lista [razon_social, establecimiento, rubro] por iteracion
+    if isinstance(fila['rubro'], str):
+        rep = ['/', ' y ', ';', '.', 'elaboracion de ']
+        for c in rep:
+            fila['rubro'] = fila['rubro'].replace(c,',')
+        rubros = temp.iloc[i,2].split(',') # generamos una lista con los rubros del establecimiento actual
+        for rubro in rubros:
+            if len(rubro) > 0 and rubro[0] == ' ':
+                rubro = rubro[1:]
+            if len(rubro) > 0 and rubro[-1] == ' ':
+                rubro = rubro[0:len(rubro)-1]
+            establecimiento_rubro_lista.append([fila['razon_social'],fila['establecimiento'],rubro])  # agregamos cada lista [razon_social, establecimiento, producto] por iteracion
 
-rubro = pd.DataFrame(rubro_lista, columns=['razon_social','establecimiento','rubro'])  # convertimos rubro_lista en el DataFrame 'rubro'
-rubro.to_csv('./3FN/padron/rubro.csv',index=False)
+establecimiento_rubro = pd.DataFrame(establecimiento_rubro_lista, columns=['razon_social','establecimiento','rubros'])  # convertimos establecimiento_rubro_lista en el DataFrame 'establecimiento_rubro'
+# modificamos a mano los datos mal cargados
+establecimiento_rubro['rubros'] = establecimiento_rubro['rubros'].replace('agicultura', 'agricultura')
+establecimiento_rubro.to_csv('./3FN/padron/establecimiento_rubro.csv')
+establecimiento_rubro.to_csv('./TablasLimpias/establecimiento_rubro.csv')
 
 
-
-# 9) Creamos la tabla principal en 3FN llamada 'padron_operadores' y la cargamos como .csv
+# 11) Creamos la tabla principal en 3FN llamada 'padron_operadores' y la cargamos como .csv
 # PK: ['establecimiento','razon_social']
-padron_operadores = sql^ '''SELECT DISTINCT establecimiento, razon_social, id_depto, localidad, rubro, categoria_id, Certificadora_id
+padron_operadores = sql^ '''SELECT DISTINCT establecimiento, razon_social, id_depto, categoria_id, Certificadora_id
                             FROM padron '''
 padron_operadores.to_csv('./3FN/padron/padron_operadores.csv', index=False)
+padron_operadores.to_csv('./TablasLimpias/padron_operadores.csv', index=False)
 
 
-# 10) Creamos tabla secundaria 'departamentos',
+# 12) Creamos tabla secundaria 'departamentos',
 # PK: ['id_depto']
 departamentos = sql^ '''SELECT DISTINCT id_depto, departamento AS departamento_nombre, provincia_id AS id_provincia
                         FROM padron'''
 departamentos.to_csv('./3FN/padron/departamentos.csv',index=False)
 
-# 11) Creamos tabla secundaria 'certificadoras'
+# 13) Creamos tabla secundaria 'certificadoras'
 # PK: ['certificadora_id']
 certificadoras = sql^ '''SELECT DISTINCT Certificadora_id, certificadora_deno FROM padron'''
 certificadoras.to_csv('./3FN/padron/certificadoras.csv',index=False)
+certificadoras.to_csv('./TablasLimpias/certificadoras.csv',index=False)
 
-# 12) Creamos tabla secundaria 'paises'
+# 14) Creamos tabla secundaria 'paises'
 # PK: ['pais_id']
 paises = sql^ '''SELECT DISTINCT pais_id, pais FROM padron '''
 paises.to_csv('./3FN/padron/paises.csv',index=False)
+paises.to_csv('./TablasLimpias/paises.csv',index=False)
 
-# 13) Creamos tabla secundaria 'categorias'
+# 15) Creamos tabla secundaria 'categorias'
 # PK: ['categoria_id']
 categorias = sql^ '''SELECT DISTINCT categoria_id, categoria_desc FROM padron '''
 categorias.to_csv('./3FN/padron/categorias.csv',index=False)
+categorias.to_csv('./TablasLimpias/categorias.csv',index=False)
                                 
 
 
@@ -339,15 +356,16 @@ categorias.to_csv('./3FN/padron/categorias.csv',index=False)
 salarios_median = sql^ '''SELECT * FROM salarios_median WHERE w_median != '-99' '''
 
 # creamos tabla primaria 'salarios'
-salarios = sql^ ''' SELECT fecha, codigo_departamento_indec AS id_depto, w_median AS salario
+salarios = sql^ ''' SELECT fecha, codigo_departamento_indec AS id_depto, clae2, w_median AS salario
                     FROM salarios_median
                 '''
 
 # creamos tabla secundaria 'salario_departamentos'
 departamentos_salarios = sql^ ''' SELECT DISTINCT codigo_departamento_indec AS id_depto, id_provincia_indec AS id_provincia
-                                FROM salarios_median
+                                  FROM salarios_median
                             '''
 # cargamos los .csv en 3FN:
 salarios.to_csv('./3FN/salarios/salarios.csv', index=False)
-departamentos_salarios.to_csv('./3FN/salarios/departamentos_salarios.csv', index=False)
+salarios.to_csv('./TablasLimpias/salarios.csv', index=False)
+departamentos_salarios.to_csv('./3FN/salarios/departamentos.csv', index=False)
 

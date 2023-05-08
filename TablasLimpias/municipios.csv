@@ -1,0 +1,1715 @@
+municipio_id,municipio_nombre
+60014.0,adolfo gonzales chaves
+60063.0,balcarce
+,
+60070.0,baradero
+60084.0,benito juarez
+60021.0,alberti
+60077.0,arrecifes
+60028.0,almirante brown
+60035.0,avellaneda
+60042.0,ayacucho
+60049.0,azul
+60056.0,bahia blanca
+60091.0,berazategui
+60098.0,berisso
+60105.0,bolivar
+60112.0,bragado
+60007.0,adolfo alsina
+60119.0,brandsen
+60126.0,campana
+60134.0,cañuelas
+60140.0,capitan sarmiento
+60147.0,carlos casares
+60154.0,carlos tejedor
+60161.0,carmen de areco
+60168.0,castelli
+60175.0,colon
+60182.0,coronel de marina leonardo rosales
+60189.0,coronel dorrego
+60196.0,coronel pringles
+60203.0,coronel suarez
+60210.0,chacabuco
+60218.0,chascomus
+60466.0,lezama
+60224.0,chivilcoy
+60231.0,daireaux
+60238.0,dolores
+60245.0,ensenada
+60252.0,escobar
+60260.0,esteban echeverria
+60266.0,exaltacion de la cruz
+60270.0,ezeiza
+60274.0,florencio varela
+60277.0,florentino ameghino
+60280.0,general alvarado
+60287.0,general alvear
+60294.0,general arenales
+60301.0,general belgrano
+60308.0,general guido
+60315.0,general juan madariaga
+60322.0,general la madrid
+60329.0,general las heras
+60336.0,general lavalle
+60343.0,general paz
+60351.0,general pinto
+60357.0,general pueyrredon
+60364.0,general rodriguez
+60371.0,general san martin
+60385.0,general viamonte
+60392.0,general villegas
+60399.0,guamini
+60406.0,hipolito yrigoyen
+60408.0,hurlingham
+60410.0,ituzaingo
+60412.0,jose c. paz
+60413.0,junin
+60420.0,la costa
+60427.0,la matanza
+60434.0,lanus
+60441.0,la plata
+60448.0,laprida
+60462.0,leandro n. alem
+60469.0,lincoln
+60476.0,loberia
+60483.0,lobos
+60490.0,lomas de zamora
+60497.0,lujan
+60505.0,magdalena
+60511.0,maipu
+60515.0,malvinas argentinas
+60518.0,mar chiquita
+60525.0,marcos paz
+60532.0,mercedes
+60539.0,merlo
+60547.0,monte
+60553.0,monte hermoso
+60560.0,moreno
+60568.0,moron
+60574.0,navarro
+60581.0,necochea
+60588.0,9 de julio
+60595.0,olavarria
+60602.0,patagones
+60609.0,pehuajo
+60616.0,pellegrini
+60623.0,pergamino
+60630.0,pila
+60638.0,pilar
+60644.0,pinamar
+60648.0,presidente peron
+60651.0,puan
+60655.0,punta indio
+60658.0,quilmes
+60665.0,ramallo
+60672.0,rauch
+60679.0,rivadavia
+60686.0,rojas
+60693.0,roque perez
+60700.0,saavedra
+60707.0,saladillo
+60714.0,salto
+60721.0,salliquelo
+60728.0,san andres de giles
+60735.0,san antonio de areco
+60742.0,san cayetano
+60749.0,san fernando
+60756.0,san isidro
+60760.0,san miguel
+60763.0,san nicolas
+60770.0,san pedro
+60784.0,suipacha
+60791.0,tandil
+60798.0,tapalque
+60805.0,tigre
+60812.0,tordillo
+60819.0,tornquist
+60826.0,trenque lauquen
+60833.0,tres arroyos
+60840.0,tres de febrero
+60847.0,tres lomas
+60854.0,25 de mayo
+60861.0,vicente lopez
+60868.0,villa gesell
+60875.0,villarino
+100028.0,los varela
+100014.0,la puerta
+100007.0,el rodeo
+100021.0,las juntas
+100035.0,ancasti
+100049.0,andalgala
+100042.0,aconquija
+100056.0,antofagasta de la sierra
+100119.0,villa vil
+100063.0,belen
+100091.0,pozo de piedra
+100070.0,corral quemado
+100098.0,puerta de corral quemado
+100077.0,hualfin
+100084.0,londres
+100105.0,puerta de san jose
+100126.0,capayan
+100133.0,huillapima
+100140.0,san fernando del valle de catamarca
+100147.0,el alto
+100154.0,tapso
+100161.0,fray mamerto esquiu
+100175.0,recreo
+100168.0,icaño
+100182.0,paclin
+100185.0,mutquin
+100196.0,saujil
+100189.0,poman
+100203.0,san jose
+100210.0,santa maria
+100213.0,los altos
+100217.0,santa rosa
+100231.0,tinogasta
+100224.0,fiambala
+100238.0,valle viejo
+142007.0,amboy
+142021.0,cañada del sauce
+140049.0,villa general belgrano
+140063.0,villa rumipal
+140070.0,villa yacanto
+140014.0,la cruz
+143015.0,la cumbrecita
+142028.0,las bajadas
+142035.0,las caleras
+140021.0,los condores
+142042.0,los molinos
+142049.0,los reartes
+142056.0,lutti
+142014.0,calmayo
+140028.0,rio de los sauces
+140056.0,san agustin
+142063.0,san ignacio
+140035.0,santa rosa de calamuchita
+142070.0,segunda usina
+142084.0,villa ciudad parque los reartes
+142077.0,villa amancay
+140042.0,villa del dique
+142091.0,villa quillinzo
+140077.0,cordoba
+140084.0,agua de oro
+140126.0,la granja
+140147.0,rio ceballos
+142105.0,el manzano
+140119.0,la calera
+140091.0,colonia caroya
+140098.0,colonia tirolesa
+142098.0,colonia vicente aguero
+140133.0,malvinas argentinas
+140175.0,villa allende
+142112.0,estacion general paz
+140112.0,jesus maria
+140168.0,unquillo
+140140.0,mendiolaza
+142119.0,mi granja
+140154.0,saldan
+140161.0,salsipuedes
+142728.0,tinoco
+142126.0,villa cerro azul
+140105.0,estacion juarez celman
+142133.0,alto de los quebrachos
+142140.0,bañado de soto
+142147.0,cruz de caña
+140182.0,cruz del eje
+142154.0,el brete
+142161.0,guanaco muerto
+140189.0,san marcos sierras
+142175.0,la higuera
+142189.0,las playas
+142819.0,los chañaritos
+142203.0,media naranja
+140196.0,serrezuela
+142217.0,tuclame
+140203.0,villa de soto
+140210.0,buchardo
+140224.0,huinca renanco
+140231.0,italo
+140245.0,mattaldi
+142224.0,nicolas bruzzone
+142231.0,onagoity
+142238.0,pincen
+142245.0,ranqueles
+140238.0,jovita
+140252.0,villa huidobro
+141120.0,villa sarmiento (s. a.)
+140259.0,villa valeria
+140273.0,arroyo cabral
+140280.0,ausonia
+140294.0,etruria
+140301.0,la laguna
+140308.0,la palestina
+140315.0,la playosa
+140322.0,luca
+140329.0,pasco
+140336.0,silvio pellico
+140343.0,ticino
+140350.0,tio pujio
+140357.0,villa maria
+140364.0,villa nueva
+142259.0,avellaneda
+142266.0,cañada de rio pinto
+142273.0,chuña
+140371.0,dean funes
+142294.0,olivares de san nicolas
+142287.0,los pozos
+140378.0,quilino
+140385.0,alejandro roca
+142308.0,assunta
+140392.0,bengolea
+140399.0,carnerillo
+140406.0,charras
+142315.0,el rastreador
+140413.0,general cabrera
+140420.0,general deheza
+140427.0,huanchilla
+140434.0,la carlota
+140448.0,olaeta
+142322.0,pacheco de melo
+142329.0,paso del durazno
+140462.0,santa eufemia
+140469.0,ucacha
+140455.0,reduccion
+140476.0,alejo ledesma
+140483.0,arias
+140490.0,camilo aldao
+140497.0,capitan general b. o'higgins
+140504.0,cavanagh
+142336.0,colonia barge
+140511.0,colonia italiana
+140518.0,corral de bustos
+140525.0,cruz alta
+140532.0,general baldissera
+140539.0,general roca
+140546.0,guatimozin
+140553.0,inriville
+140560.0,isla verde
+140567.0,leones
+140574.0,los surgentes
+140588.0,monte buey
+140595.0,saira
+142343.0,saladillo
+142357.0,cienaga del coro
+142364.0,el chacho
+142371.0,estancia de guadalupe
+142378.0,guasapampa
+142385.0,la playa
+140602.0,san carlos minas
+142392.0,talaini
+142399.0,tosno
+142406.0,chancani
+142434.0,tala cañada
+140609.0,salsacate
+142427.0,san geronimo
+142441.0,villa de pocho
+140616.0,general levalle
+140623.0,la cesira
+140630.0,laboulaye
+142448.0,leguizamon
+140637.0,melo
+142455.0,rio bamba
+140644.0,rosales
+142462.0,san joaquin
+140651.0,serrano
+140658.0,villa rossi
+140672.0,capilla del monte
+140665.0,bialet masse
+142469.0,cabalango
+142476.0,casa grande
+142483.0,charbonier
+140679.0,cosquin
+142490.0,cuesta blanca
+142497.0,estancia vieja
+140686.0,huerta grande
+140693.0,la cumbre
+140700.0,la falda
+142511.0,san antonio de arredondo
+140707.0,los cocos
+140721.0,santa maria de punilla
+142504.0,mayu sumaj
+140714.0,san esteban
+142518.0,san roque
+142525.0,tala huasi
+140728.0,tanti
+140735.0,valle hermoso
+140742.0,villa carlos paz
+140749.0,villa giardino
+142539.0,villa santa cruz del lago
+142532.0,villa parque siquiman
+142546.0,villa rio icho cruz
+140756.0,achiras
+140763.0,adelia maria
+140770.0,alcira
+140777.0,alpa corral
+140784.0,berrotaran
+140791.0,bulnes
+140798.0,chajan
+142553.0,chucul
+140805.0,coronel baigorria
+140812.0,coronel moldes
+140819.0,elena
+142560.0,"la carolina ""el potosi"""
+140833.0,las acequias
+142567.0,las albahacas
+140840.0,las higueras
+142574.0,las peñas sud
+140847.0,las vertientes
+142581.0,malena
+140854.0,monte de los gauchos
+140861.0,rio cuarto
+140868.0,sampacho
+140875.0,san basilio
+140882.0,santa catalina
+142588.0,suco
+140896.0,vicuña mackenna
+142595.0,villa el chacay
+142602.0,washington
+142616.0,cañada de machado
+142623.0,capilla de los remedios
+142651.0,diego de rojas
+142658.0,el crispin
+142665.0,esquina
+142672.0,kilometro 658
+140903.0,la para
+142679.0,la posta
+140910.0,la puerta
+142686.0,la quinta
+142700.0,las saladas
+142707.0,maquinista gallini
+140917.0,monte cristo
+140924.0,obispo trejo
+140931.0,piquillin
+142714.0,plaza de mercedes
+142644.0,comechingones
+140938.0,rio primero
+140945.0,santa rosa de rio primero
+140952.0,villa fontana
+142735.0,cerro colorado
+142749.0,eufrasio loza
+142756.0,gutemberg
+142770.0,los hoyos
+142791.0,santa elena
+140959.0,sebastian elcano
+142798.0,villa candelaria norte
+140966.0,villa de maria
+140973.0,calchin
+140980.0,calchin oeste
+140987.0,capilla del carmen
+140994.0,carrilobo
+141001.0,colazo
+142805.0,colonia videla
+141008.0,costasacate
+142812.0,impira
+141015.0,laguna larga
+141022.0,las junturas
+141043.0,matorrales
+141057.0,pilar
+142826.0,rincon
+141071.0,rio segundo
+141078.0,santiago temple
+141085.0,villa del rosario
+142840.0,arroyo los patos
+142847.0,las calles
+142854.0,las rabonas
+141106.0,san pedro
+141092.0,mina clavero
+141099.0,nono
+142861.0,panaholma
+142868.0,san lorenzo
+142875.0,san vicente
+142882.0,sauce arriba
+142252.0,villa sarmiento (g.r.)
+142889.0,conlara
+141127.0,la paz
+142917.0,los hornillos
+142896.0,la poblacion
+142924.0,luyaba
+142903.0,las tapias
+142910.0,los cerrillos
+141148.0,villa de las rosas
+141134.0,san javier y yacanto
+141141.0,san jose
+141155.0,villa dolores
+141162.0,alicia
+141169.0,altos de chipion
+141176.0,arroyito
+141183.0,balnearia
+142945.0,colonia las pichanas
+141197.0,colonia marina
+141204.0,colonia prosperidad
+141211.0,colonia san bartolome
+142952.0,colonia san pedro
+142959.0,colonia valtelina
+141218.0,colonia vignaud
+141225.0,devoto
+141232.0,el arañado
+141239.0,el fortin
+141246.0,el tio
+142966.0,plaza luxardo
+142938.0,colonia iturraspe
+141260.0,la francia
+141267.0,la paquita
+141274.0,la tordilla
+141281.0,las varas
+141288.0,las varillas
+141295.0,marull
+141302.0,miramar
+141309.0,morteros
+141337.0,san francisco
+141316.0,porteña
+141323.0,quebracho herrado
+141330.0,sacanta
+141344.0,saturnino maria laspiur
+141351.0,seeber
+142973.0,toro pujio
+141358.0,transito
+142980.0,villa san esteban
+141372.0,alta gracia
+142987.0,anisacate
+141393.0,malagueño
+142994.0,bouwer
+143106.0,villa parque santa ana
+141379.0,despeñaderos
+143001.0,dique chico
+143008.0,falda del carmen
+143113.0,villa san isidro
+143022.0,la paisanita
+143043.0,los cedros
+141386.0,lozada
+141400.0,monte ralo
+143050.0,potrero de garay
+143057.0,rafael garcia
+143064.0,san clemente
+141407.0,toledo
+143071.0,valle de anisacate
+143078.0,villa ciudad de america
+143092.0,villa la bolsa
+143120.0,caminiaga
+143134.0,pozo nuevo
+141414.0,san francisco del chañar
+141421.0,almafuerte
+141428.0,colonia almada
+141435.0,corralito
+143141.0,general fotheringham
+141449.0,hernando
+141456.0,james craik
+143148.0,las isletillas
+141463.0,las perdices
+141470.0,los zorros
+141477.0,oliva
+143155.0,pampayasta norte
+141484.0,pampayasta sud
+143162.0,punta del agua
+141491.0,rio tercero
+141498.0,tancacha
+141505.0,villa ascasubi
+143169.0,candelaria sud
+141512.0,cañada de luque
+143176.0,capilla del siton
+143183.0,la pampa
+143190.0,los mistoles
+143197.0,simbolar
+141533.0,sinsacate
+141540.0,villa del totoral
+143211.0,el rodeo
+141547.0,las arrias
+141554.0,lucio v. mansilla
+141561.0,san jose de la dormida
+141568.0,san jose de las salinas
+141582.0,villa tulumba
+143225.0,aldea santa maria
+141589.0,alto alegre
+143232.0,ana zumaran
+141596.0,ballesteros
+141603.0,ballesteros sud
+141610.0,bell ville
+141617.0,benjamin gould
+141624.0,canals
+141631.0,chilibroste
+141638.0,cintra
+141645.0,colonia bismarck
+141652.0,idiazabal
+141659.0,justiniano posse
+141666.0,laborde
+141673.0,monte leña
+141680.0,monte maiz
+141687.0,morrison
+141694.0,noetinger
+141701.0,ordoñez
+141708.0,pascanas
+141715.0,pueblo italiano
+141722.0,san antonio de litin
+141729.0,san marcos sud
+141736.0,viamonte
+143246.0,villa los patos
+141743.0,wenceslao escalante
+180007.0,bella vista
+180014.0,beron de astrada
+180028.0,riachuelo
+180042.0,concepcion
+180035.0,colonia santa rosa
+180056.0,tatacua
+180063.0,curuzu cuatia
+180049.0,tabay
+180070.0,perugorria
+180077.0,empedrado
+180084.0,esquina
+180091.0,pueblo libertador
+180098.0,alvear
+180105.0,estacion torrent
+180126.0,lomas de vallejos
+180112.0,caa cati
+180133.0,palmar grande
+180137.0,carolina
+180140.0,goya
+180147.0,itati
+180154.0,ramada paso
+180161.0,colonia liebig's
+180168.0,ituzaingo
+180175.0,san antonio
+180182.0,san carlos
+180186.0,villa olivari
+180189.0,cruz de los milagros
+180196.0,gobernador martinez
+180203.0,lavalle
+180210.0,santa lucia
+180224.0,mburucuya
+180238.0,mariano i. loza
+180245.0,mercedes
+180259.0,juan pujol
+180266.0,mocoreta
+180280.0,bonpland
+180287.0,parada pucheta
+180294.0,paso de los libres
+180301.0,tapebicua
+180308.0,saladas
+180315.0,san lorenzo
+180336.0,santa ana
+180322.0,paso de la patria
+180350.0,san luis del palmar
+180357.0,colonia carlos pellegrini
+180364.0,guaviravi
+180371.0,la cruz
+180378.0,yapeyu
+180392.0,san miguel
+180413.0,chavarria
+180417.0,colonia pando
+180399.0,9 de julio
+180406.0,pedro r. fernandez
+180420.0,san roque
+180441.0,jose rafael gomez
+180427.0,garruchos
+180434.0,gobernador ing. valentin virasoro
+180448.0,santo tome
+180455.0,sauce
+220007.0,concepcion del bermejo
+220014.0,los frentones
+220021.0,pampa del infierno
+220028.0,taco pozo
+220035.0,general vedia
+220042.0,isla del cerrito
+220049.0,la leonesa
+220056.0,las palmas
+220063.0,puerto bermejo
+220070.0,puerto eva peron
+220077.0,presidencia roque saenz peña
+220084.0,charata
+220091.0,gancedo
+220112.0,hermoso campo
+220119.0,chorotis
+220126.0,santa sylvina
+220113.0,corzuela
+220140.0,la escondida
+220154.0,la verde
+220161.0,makalle
+220168.0,el sauzalito
+220175.0,fuerte esperanza
+220182.0,juan jose castelli
+220189.0,miraflores
+220169.0,mision nueva pompeya
+220210.0,avia terai
+220217.0,campo largo
+220224.0,napenay
+220254.0,puerto tirol
+220238.0,laguna blanca
+220259.0,gral. san martengeneral san martin
+220266.0,la eduvigis
+220273.0,laguna limpia
+220280.0,pampa almiron
+220287.0,pampa del indio
+220294.0,presidencia roca
+220301.0,tres isletas
+220308.0,coronel du graty
+220315.0,enrique urien
+220322.0,villa angela
+220329.0,las breñas
+220336.0,la clotilde
+220343.0,la tigra
+220350.0,san bernardo
+220364.0,colonia benitez
+220378.0,quitilipi
+220385.0,barranqueras
+220392.0,basail
+220413.0,resistencia
+220399.0,fontana
+220420.0,samuhu
+220427.0,villa berthet
+220434.0,capitan solari
+220441.0,colonias elisa
+220448.0,colonias unidas
+220455.0,las garcitas
+220469.0,charadai
+220462.0,cote lai
+260007.0,puerto madryn
+260014.0,cholila
+268014.0,cushamen
+260021.0,el hoyo
+260035.0,epuyen
+260042.0,lago puelo
+260049.0,comodoro rivadavia
+260056.0,rada tilly
+260063.0,camarones
+260084.0,trevelin
+260070.0,corcovado
+260077.0,esquel
+260091.0,dolavon
+260098.0,gaiman
+268035.0,gastre
+268056.0,carrenleufu
+268063.0,colan conhue
+268070.0,paso del sapo
+260105.0,tecka
+268077.0,las plumas
+265021.0,paso de indios
+260112.0,rawson
+260119.0,trelew
+260126.0,alto rio senguer
+268091.0,aldea beleiro
+268098.0,doctor ricardo rojas
+260133.0,rio mayo
+268119.0,buen pasto
+260140.0,sarmiento
+268147.0,dr. atilio oscar viglione
+260147.0,gobernador costa
+268126.0,gan gan
+340007.0,laguna yema
+345007.0,los chiriguanos
+345014.0,colonia pastoril
+340028.0,formosa
+345021.0,gran guardia
+345028.0,san hilario
+340049.0,general lucio victorio mansilla
+340056.0,herradura
+340063.0,mision san francisco de laishi
+340070.0,villa escolar
+340077.0,ingeniero guillermo n. juarez
+340133.0,las lomitas
+340140.0,pozo del tigre
+345049.0,subteniente perin
+345056.0,buena vista
+340168.0,espinillo
+340175.0,mision taacagle
+349105.0,porton negro
+345063.0,tres lagunas
+340189.0,clorinda
+340169.0,laguna blanca
+340203.0,laguna naik neck
+340210.0,riacho he-he
+345070.0,siete palmas
+340231.0,mayor vicente e. villafañe
+340245.0,pirane
+340252.0,villa dos trece
+340259.0,general mosconi
+386007.0,abdon castro tolay
+386014.0,abralaite
+386021.0,puesto del marques
+386035.0,aguas calientes
+380063.0,monterrico
+386042.0,pampa blanca
+380035.0,san salvador de jujuy
+386028.0,yala
+380105.0,humahuaca
+380091.0,el aguilar
+386063.0,tres cruces
+380147.0,yuto
+380126.0,calilegua
+380119.0,caimancito
+380140.0,libertador general san martin
+380154.0,palpala
+386077.0,rinconada
+386070.0,mina pirquitas
+386140.0,cusi cusi
+386084.0,san antonio
+380224.0,san pedro de jujuy
+380196.0,la esperanza
+380203.0,la mendieta
+386105.0,rodeito
+386098.0,el fuerte
+386119.0,el piquete
+380238.0,el talar
+380245.0,palma sola
+380252.0,santa clara
+386126.0,vinalito
+386133.0,cieneguillas
+386147.0,santa catalina
+386161.0,coranzuli
+386175.0,huacalera
+380329.0,tilcara
+386203.0,volcan
+386189.0,purmamarca
+386196.0,tumbaya
+386224.0,san francisco
+386231.0,santa ana
+386238.0,valle grande
+386245.0,barrios
+386252.0,cangrejillos
+386266.0,pumahuasi
+380406.0,la quiaca
+386273.0,yavi
+420112.0,doblas
+420231.0,macachin
+420259.0,miguel riglos
+420322.0,rolon
+420364.0,tomas manuel anchorena
+420189.0,la adela
+420028.0,anguil
+420336.0,santa rosa
+420077.0,catrilo
+420378.0,uriburu
+420217.0,lonquimay
+420098.0,conhelo
+420238.0,mauricio mayer
+425133.0,rucanelo
+420280.0,puelches
+420329.0,santa isabel
+420049.0,bernardo larroude
+420084.0,ceballos
+420105.0,coronel hilario lagos
+420175.0,intendente alvear
+420392.0,vertiz
+420011.0,algarrobo del aguila
+420196.0,la humada
+420014.0,alpachiri
+420140.0,general campos
+420161.0,guatrache
+420343.0,santa teresa
+420007.0,abramo
+420154.0,general san martin
+420182.0,jacinto arauz
+425042.0,cuchillo co
+425077.0,la reforma
+420070.0,carro quemado
+425091.0,loventue
+420224.0,luan toro
+420350.0,telen
+420399.0,victorica
+420116.0,dorila
+425147.0,speluzzi
+422007.0,casa de piedra
+420287.0,puelen
+420385.0,veinticinco de mayo
+420091.0,colonia baron
+420252.0,miguel cane
+420301.0,quemu quemu
+425126.0,relmo
+420406.0,villa mirasol
+420273.0,parera
+425112.0,pichi huinca
+425007.0,adolfo van praet
+420021.0,alta italia
+425098.0,maisonnave
+420126.0,embajador martini
+425063.0,falucho
+420168.0,ingeniero luiggi
+420315.0,realico
+420357.0,toay
+420035.0,arata
+420245.0,metileo
+420371.0,trenel
+425028.0,colonia santa maria
+420133.0,general acha
+420294.0,quehue
+425154.0,unanue
+460007.0,arauco
+460014.0,capital
+460021.0,castro barros
+460028.0,coronel felipe varela
+425049.0,chacharramendi
+460035.0,chamical
+460042.0,chilecito
+460049.0,famatina
+460056.0,general angel vicente peñaloza
+460077.0,general lamadrid
+460084.0,general ocampo
+460091.0,general san martin
+460098.0,vinchina
+460105.0,independencia
+460112.0,rosario vera peñaloza
+460119.0,san blas de los sauces
+460126.0,sanagasta
+500021.0,godoy cruz
+500028.0,guaymallen
+500035.0,junin
+500049.0,las heras
+500063.0,lujan de cuyo
+500056.0,lavalle
+500070.0,maipu
+500077.0,malargue
+500084.0,rivadavia
+500091.0,san carlos
+500119.0,tunuyan
+500126.0,tupungato
+540007.0,apostoles
+540014.0,azara
+540021.0,san jose
+540035.0,aristobulo del valle
+540063.0,candelaria
+540056.0,bonpland
+540070.0,cerro cora
+540084.0,martires
+540091.0,profundidad
+540098.0,santa ana
+540112.0,garupa
+540126.0,concepcion de la sierra
+540168.0,santiago de liniers
+540182.0,comandante a. guacurary
+540189.0,san antonio
+540196.0,el soberbio
+540203.0,san vicente
+540224.0,libertad
+540217.0,iguazu
+540231.0,colonia wanda
+540245.0,arroyo del medio
+540252.0,caa yari
+540259.0,cerro azul
+540266.0,dos arroyos
+540273.0,gobernador lopez
+540280.0,leandro n. alem
+540287.0,olegario v. andrade
+540322.0,puerto rico
+540301.0,el alcazar
+540315.0,leoni
+540329.0,ruiz de montoya
+540343.0,montecarlo
+540350.0,puerto piray
+540371.0,colonia alberdi
+540392.0,los helechos
+540357.0,campo ramon
+540364.0,campo viera
+540378.0,gral. alvear
+540385.0,guarani
+540406.0,panambi
+540413.0,san martin
+540469.0,santo pipo
+540427.0,corpus
+540434.0,general j. j. urquiza
+540441.0,gobernador roca
+540448.0,hipolito irigoyen
+540455.0,jardin america
+540483.0,itacaruare
+540497.0,san javier
+540504.0,san pedro
+540511.0,alba posse
+540518.0,colonia aurora
+580252.0,villa pehuenia
+585014.0,aguada san roque
+580021.0,san patricio del chañar
+580035.0,piedra del aguila
+585035.0,santo tomas
+580077.0,senillosa
+580091.0,vista alegre
+580042.0,centenario
+580084.0,villa el chocon
+580056.0,neuquen
+580070.0,plottier
+580105.0,tricao malal
+585056.0,villa curi leuvu
+580112.0,junin de los andes
+580119.0,san martin de los andes
+580126.0,loncopue
+585070.0,villa traful
+580140.0,andacollo
+580147.0,huinganco
+580154.0,las ovejas
+580161.0,los miches
+585084.0,manzano amargo
+585091.0,varvarco - invernada vieja
+580168.0,caviahue-copahue
+580175.0,el cholar
+580182.0,el huecu
+580196.0,barrancas
+580203.0,buta ranquil
+585112.0,el sauce
+580217.0,picun leufu
+580231.0,las lajas
+585126.0,quili malal
+585140.0,los catutos
+585147.0,ramon castro
+580245.0,zapala
+620014.0,viedma
+620007.0,guardia mitre
+625014.0,san javier
+620035.0,coronel belisle
+620042.0,darwin
+620049.0,lamarque
+620056.0,luis beltran
+620063.0,pomona
+620077.0,san carlos de bariloche
+620070.0,el bolson
+620084.0,gral. conesa
+625077.0,aguada guzman
+620091.0,allen
+620133.0,cipolletti
+620161.0,gral. roca
+620140.0,contralmirante cordero
+620154.0,gral. fdez. oro
+625105.0,peñas blancas
+620098.0,campo grande
+620112.0,cervantes
+620168.0,ingeniero huergo
+620119.0,chichinales
+620105.0,catriel
+620126.0,cinco saltos
+625210.0,comico
+620189.0,ministro ramos mexia
+625259.0,prahuaniyeu
+620196.0,sierra colorada
+625119.0,rincon de treneta
+620224.0,pilcaniyeu
+625238.0,mamuel choique
+620203.0,ñorquinco
+625245.0,ojos de agua
+625266.0,rio chico
+620210.0,rìo colorado
+620217.0,comallo
+625231.0,laguna blanca
+625140.0,pilquiniyeu del limay
+625042.0,villa llanquin
+620231.0,san antonio oeste
+620238.0,sierra grande
+625168.0,aguada cecilio
+625147.0,arroyo los berros
+625182.0,nahuel niyeu
+625189.0,sierra paileman
+620245.0,valcheta
+625196.0,aguada de guerra
+625203.0,colan conhue
+625224.0,el cain
+620252.0,ing. jacobacci
+620259.0,los menucos
+620266.0,maquinchao
+625252.0,pilquiniyeu
+660028.0,joaquin v. gonzalez
+660014.0,el quebrachal
+660021.0,general pizarro
+660035.0,las lajitas
+660042.0,cachi
+660049.0,payogasta
+660056.0,cafayate
+660063.0,salta
+660077.0,cerrillos
+660084.0,la merced
+660098.0,el carril
+660112.0,el bordo
+660119.0,general guemes
+660126.0,aguaray
+660147.0,general mosconi
+660133.0,embarcacion
+660154.0,profesor salvador mazza
+660140.0,general ballivian
+660161.0,tartagal
+660168.0,guachipas
+660182.0,isla de cañas
+660189.0,la caldera
+660203.0,el jardin
+660210.0,el tala
+660217.0,la candelaria
+660224.0,la poma
+660238.0,la viña
+660259.0,el galpon
+660273.0,molinos
+660301.0,hipolito yrigoyen
+660308.0,pichanal
+660315.0,san ramon de la nueva oran
+660343.0,santa victoria este
+660329.0,rivadavia banda norte
+660336.0,rivadavia banda sur
+660357.0,rosario de la frontera
+660364.0,campo quijano
+660371.0,rosario de lerma
+660378.0,angastaco
+660385.0,animana
+660392.0,san carlos
+660406.0,nazareno
+660399.0,los toldos
+700007.0,albardon
+700014.0,angaco
+700021.0,calingasta
+700028.0,san juan
+700042.0,chimbas
+700056.0,jachal
+700063.0,9 de julio
+700084.0,rivadavia
+700091.0,san martin
+700098.0,santa lucia
+700105.0,sarmiento
+700112.0,ullum
+700119.0,valle fertil
+700126.0,25 de mayo
+740007.0,candelaria
+746007.0,leandro n. alem
+740014.0,lujan
+740021.0,quines
+746014.0,la calera
+746021.0,nogoli
+740035.0,"v, gral, roca"
+746035.0,carolina
+746042.0,el trapiche
+740042.0,la toma
+746063.0,saladillo
+740049.0,concaran
+746070.0,cortaderas
+740056.0,naschel
+746077.0,papagayos
+746091.0,san pablo
+740063.0,tilisarao
+746098.0,villa del carmen
+749119.0,juan jorba
+746140.0,lavaisse
+740073.0,ranqueles
+746112.0,san jose del morro
+740077.0,villa mercedes
+746154.0,arizona
+746161.0,bagual
+746168.0,batavia
+749182.0,fortuna
+746189.0,navia
+746196.0,nueva galia
+740091.0,union
+746203.0,carpinteria
+746210.0,lafinur
+746217.0,los molles
+740098.0,sta rosa del conlara
+746238.0,alto pencoso
+746245.0,balde
+746252.0,beazley
+740108.0,desaguadero
+746259.0,el volcan
+746266.0,p. de los funes
+746273.0,san jeronimo
+740133.0,san luis
+746287.0,las vertientes
+746294.0,las aguadas
+746301.0,las chacras
+746308.0,las lagunas
+746315.0,paso grande
+740140.0,san martin
+746322.0,"v, de praga"
+820007.0,armstrong
+822007.0,bouquet
+820014.0,las parejas
+822028.0,arequito
+822035.0,arteaga
+822042.0,berabevu
+822049.0,bigand
+820028.0,casilda
+822056.0,chabas
+822070.0,gödeken
+822091.0,san jose de la esquina
+822084.0,los quirquinchos
+822098.0,sanford
+822147.0,colonia aldao
+822112.0,angelica
+822119.0,ataliva
+822126.0,aurelia
+822133.0,bauer y sigel
+822140.0,bella italia
+822168.0,castellanos
+822154.0,colonia bicha
+822175.0,colonia cello
+822189.0,colonia margarita
+822196.0,colonia raquel
+822203.0,coronel fraga
+822210.0,egusquiza
+822217.0,esmeralda
+822224.0,estacion clucellas
+822336.0,saguier
+822238.0,eustolia
+820035.0,frontera
+822287.0,lehmann
+822294.0,maria juana
+822322.0,pueblo marini
+820042.0,rafaela
+822343.0,san antonio
+822357.0,santa clara de saguier
+820049.0,sunchales
+822364.0,susana
+822371.0,tacural
+822385.0,vila
+822392.0,villa san jose
+822413.0,alcorta
+820056.0,villa constitucion
+822420.0,bombal
+822427.0,cañada rica
+822434.0,cepeda
+820063.0,firmat
+822455.0,godoy
+822462.0,juan bernabe molina
+822469.0,juncal
+822483.0,m9ximo paz
+822504.0,peyrano
+822511.0,rueda
+822518.0,santa teresa
+822525.0,sargento cabral
+822553.0,helvecia
+822560.0,saladero mariano cabal
+822574.0,aaron castellanos
+822581.0,amenabar
+822588.0,cafferata
+822602.0,carmen
+822623.0,chovet
+822630.0,christophersen
+822637.0,diego de alvear
+822644.0,elortondo
+822679.0,maggiolo
+822686.0,maria teresa
+822700.0,miguel torres
+820070.0,rufino
+822721.0,san francisco de santa fe
+822728.0,san gregorio
+822749.0,teodelina
+820277.0,venado tuerto
+822756.0,wheelwright
+822763.0,arroyo ceibal
+820091.0,avellaneda
+822770.0,berna
+822784.0,el rabon
+822798.0,florencia
+822819.0,la sarita
+822833.0,las garzas
+820098.0,las toscas
+820105.0,malabrigo
+822854.0,san antonio de obligado
+822861.0,tacuarendi
+822875.0,villa guillermina
+820133.0,totoras
+820126.0,cañada de gomez
+822889.0,carrizales
+822896.0,clason
+822903.0,correa
+822910.0,lucio v. lopez
+822917.0,oliveros
+823001.0,monte vera
+822952.0,arroyo aguiar
+822966.0,cabal
+822973.0,campo andino
+822987.0,emilia
+822994.0,llambi campbell
+823008.0,nelson
+820144.0,recreo
+823022.0,san jose del rincon
+820147.0,santa fe
+820154.0,santo tome
+823057.0,elisa
+823071.0,felicia
+823078.0,franck
+823085.0,grutly
+823099.0,humboldt
+823113.0,jacinto l. arauz
+823120.0,la pelada
+823127.0,las tunas
+823141.0,matilde
+823148.0,nuevo torino
+823155.0,pilar
+823169.0,providencia
+823190.0,sa pereyra
+823197.0,san agustin
+823204.0,san carlos norte
+823211.0,san carlos sud
+823218.0,san jeronimo del sauce
+823239.0,santa clara de buena vista
+823260.0,santo domingo
+823281.0,esteban rams
+823295.0,gregoria perez de denis
+823330.0,san bernardo
+820175.0,tostado
+823358.0,albarellos
+823365.0,alvarez
+823379.0,arminda
+820182.0,arroyo seco
+823386.0,carmen del sauce
+823393.0,coronel bogado
+823470.0,coronel dominguez
+820196.0,granadero baigorria
+823414.0,ibarlucea
+823421.0,piñero
+823428.0,pueblo esther
+823435.0,pueblo muñoz
+823449.0,uranga
+823442.0,soldini
+823456.0,villa amelia
+820217.0,villa gobernador galvez
+823463.0,zavalla
+823477.0,aguara grande
+823484.0,ambrosetti
+823505.0,colonia ana
+823512.0,colonia bossi
+823519.0,colonia rosa
+823526.0,constanza
+823533.0,curupaity
+823547.0,hersilia
+823561.0,la cabral
+823575.0,la lucila
+823582.0,la rubia
+823596.0,las palmeras
+823603.0,moises ville
+823610.0,monigotes
+823624.0,ñanducita
+823631.0,palacios
+820231.0,san cristobal
+823645.0,san guillermo
+823652.0,santurce
+823680.0,villa trinidad
+823701.0,colonia duran
+823715.0,romang
+823722.0,arocena
+823729.0,barrancas
+823764.0,desvio arijon
+823736.0,bernardo de irigoyen
+823750.0,casalegno
+823757.0,centeno
+820245.0,coronda
+823778.0,gaboto
+823785.0,gessler
+823792.0,pueblo irigoyen
+823806.0,loma alta
+823813.0,lopez
+823820.0,maciel
+823834.0,san eugenio
+820256.0,san genaro
+823869.0,cayastacito
+823911.0,la penca y caraguata
+823918.0,marcelino escalada
+823932.0,pedro gomez cello
+823946.0,san bernardo
+823967.0,vera y pintado
+823981.0,aldao
+820266.0,capitan bermudez
+823988.0,coronel arnold
+820280.0,fray luis beltran
+823995.0,fuentes
+824002.0,luis palacios
+824009.0,pujato
+824016.0,ricardone
+820294.0,roldan
+824023.0,san jeronimo sud
+824030.0,timbues
+824037.0,villa mugueta
+824044.0,cañada rosquin
+824058.0,casas
+824065.0,castelar
+824079.0,crispi
+824086.0,landeta
+824093.0,las bandurrias
+824100.0,las petacas
+824107.0,los cardos
+824114.0,maria susana
+824121.0,piamonte
+820315.0,san jorge
+824128.0,san mart
+820322.0,sastre
+820329.0,calchaqui
+824170.0,intiyaco
+824156.0,garabato
+824163.0,golondrina
+824177.0,la gallareta
+824191.0,margarita
+824198.0,tartagal
+908021.0,el naranjo y el sunchal
+908014.0,el chañar
+908042.0,garmendia
+908056.0,la ramada y la cruz
+908049.0,gdor. piedrabuena
+908007.0,7 de abril
+908070.0,villa padre monti
+900021.0,municipalidad de alderetes
+908077.0,colombres
+908133.0,los perez
+908091.0,el bracho y el cevilar
+908105.0,la florida y luisiana
+908140.0,los ralos
+908168.0,alto verde y los guchea
+908175.0,arcadia
+908196.0,medina
+900042.0,municipalidad de famailla
+900049.0,municipalidad de graneros
+908210.0,taco ralo
+900056.0,municipalidad de juan bautista alberdi
+908224.0,comuna villa belgrano
+908448.0,teniente berdina
+908469.0,los sarmiento y la tipa
+900014.0,municipalidad de san miguel de tucuman
+908532.0,rio chico y nueva trinidad
+900063.0,municipalidad de la cocha
+908259.0,san jose de la cocha
+900070.0,municipalidad de bella vista
+908294.0,estacion araoz y tacanas
+908315.0,los puestos
+908336.0,rio colorado
+908343.0,santa rosa de leales y l. blanca
+908350.0,villa de leales
+908357.0,el manantial
+900077.0,municipalidad de lules
+908378.0,acheral
+900084.0,municipalidad de monteros
+908406.0,leon rouges y santa rosa
+908420.0,rio seco
+908581.0,el mollar
+900105.0,municipalidad de tafi del valle
+900119.0,municipalidad de tafi viejo
+908602.0,el cadillal
+900112.0,municipalidad de las talitas
+908623.0,choromoro
+908630.0,san pedro de colalao
+908560.0,municipalidad de yerba buena
+908644.0,cevil redondo
+940014.0,ushuaia
+940007.0,rio grande
+660413.0,santa victoria oeste
+700133.0,zonda
+823925.0,nare
+823960.0,silva
+908427.0,santa lucia
+908441.0,soldado maldonado
+822931.0,salto grande
+625056.0,el cuy
+625217.0,clemente onelli
+822329.0,ramona
+822490.0,pavon
+900035.0,municipalidad de concepcion
+580224.0,bajada del agrio
+908392.0,capitan caceres
+60455.0,las flores
+60778.0,san vicente
+60882.0,zarate
+140007.0,embalse
+140441.0,los cisnes
+140581.0,marcos juarez
+140826.0,la cautiva
+142784.0,rayo cortado
+141036.0,manfredi
+141050.0,oncativo
+142833.0,ambul
+141113.0,villa cura brochero
+143036.0,la serranita
+143099.0,villa los aromos
+141519.0,las peñas
+141526.0,sarmiento
+141575.0,san pedro norte
+180021.0,corrientes
+180119.0,ita ibate
+180217.0,yatayti calle
+180231.0,felipe yofre
+180252.0,colonia libertad
+180273.0,monte caseros
+180329.0,san cosme
+180385.0,loreto
+220105.0,general pinedo
+220147.0,lapachito
+220203.0,villa rio bermejito
+220231.0,colonia popular
+220252.0,ciervo petiso
+220476.0,machagai
+265014.0,28 de julio
+268084.0,los altares
+260154.0,jose de san martin
+340091.0,comandante fontana
+340098.0,estanislao del campo
+345042.0,fortin lugones
+340119.0,general guemes
+340112.0,general belgrano
+340224.0,el colorado
+386049.0,puesto viejo
+386056.0,hipolito yrigoyen
+386154.0,catua
+386168.0,susques
+386259.0,el condor
+420119.0,eduardo castex
+420266.0,monte nievas
+425070.0,gobernador duval
+425105.0,peru
+425084.0,limay mahuida
+420063.0,caleufu
+420210.0,la maruja
+425119.0,quetrequen
+420308.0,rancul
+420042.0,ataliva roca
+460063.0,general belgrano
+500112.0,santa rosa
+540028.0,tres capones
+540042.0,campo grande
+540049.0,dos de mayo
+540119.0,posadas
+540133.0,santa maria
+540140.0,colonia delicia
+540161.0,9 de julio
+540175.0,bernardo de irigoyen
+540210.0,puerto esperanza
+540238.0,almafuerte
+540294.0,capiovi
+540336.0,caraguatay
+540420.0,colonia polana
+540462.0,san ignacio
+540476.0,ameghino
+580014.0,añelo
+580028.0,las coloradas
+585098.0,villa del nahueve
+585105.0,octavio pico
+580210.0,rincon de los sauces
+580238.0,mariano moreno
+620021.0,chimpay
+620028.0,choele choel
+620175.0,mainque
+620147.0,gral. enrique godoy
+625161.0,cona niyeu
+620273.0,dina huapi
+625154.0,arroyo ventana
+660105.0,campo santo
+660175.0,iruya
+660196.0,vaqueros
+660231.0,coronel moldes
+660245.0,san antonio de los cobres
+660280.0,rio piedras
+660322.0,urundel
+700035.0,caucete
+700077.0,rawson
+740028.0,san francisco
+746028.0,"v, de la quebrada"
+740038.0,estancia grande
+746084.0,renca
+746105.0,villa larca
+746133.0,la punilla
+746147.0,anchorena
+740084.0,buena esperanza
+740105.0,merlo
+746224.0,talita
+746280.0,zanjitas
+820021.0,las rosas
+822014.0,montes de oca
+822021.0,tortugas
+822077.0,los molinos
+822105.0,villada
+822280.0,josefina
+822231.0,eusebia y carolina
+822259.0,garibaldi
+822273.0,humberto primo
+822308.0,plaza clucellas
+822350.0,san vicente
+822406.0,zenon pereyra
+822476.0,la vanguardia
+822497.0,pavon arriba
+822539.0,cayasta
+822609.0,carreras
+822651.0,hughes
+822658.0,la chispa
+822693.0,melincue
+822735.0,sancti spiritu
+822805.0,guadalupe norte
+822812.0,ingeniero chanourdie
+822826.0,lanteri
+822840.0,los laureles
+820112.0,reconquista
+822882.0,bustinza
+822924.0,pueblo andino
+822938.0,serodino
+822945.0,villa eloisa
+822980.0,candioti
+820140.0,laguna paiva
+823050.0,cululu
+823064.0,empalme san carlos
+820161.0,esperanza
+823092.0,hipatia
+823134.0,maria luisa
+820168.0,san carlos centro
+823225.0,san jeronimo norte
+823309.0,logroño
+823316.0,montefiore
+823323.0,pozo borrado
+823337.0,santa margarita
+823372.0,alvear
+823400.0,fighiera
+823491.0,arrufo
+823554.0,huanqueros
+823498.0,capivara
+820224.0,ceres
+823666.0,suardi
+823687.0,alejandra
+823708.0,la brava
+823827.0,monje
+820252.0,galvez
+823799.0,larrechea
+823890.0,gobernador crespo
+823904.0,la criolla
+823939.0,ramayon
+820259.0,san justo
+820301.0,san lorenzo
+824072.0,colonia belgrano
+820308.0,el trebol
+824142.0,cañada ombu
+824184.0,los amores
+820336.0,vera
+900007.0,municipalidad de burruyacu
+908084.0,delfin gallo
+908112.0,las cejas
+908147.0,ranchillos y san miguel
+908154.0,san andres
+908189.0,trinidad
+908203.0,lamadrid
+908455.0,villa quinteros
+908490.0,atahona
+908518.0,monteagudo
+900098.0,municipalidad de simoca
+908567.0,amaicha del valle
+900126.0,municipalidad de trancas
+660294.0,colonia santa rosa
+540147.0,colonia victoria
+625112.0,valle azul
+585063.0,chorriaca
+140287.0,chazon
+141365.0,villa concepcion del tio
+268028.0,dique florentino ameghino
+340126.0,ibarreta
+380056.0,el carmen
+386091.0,arrayanal
+140889.0,tosquita
+142196.0,los chañaritos (c.d. eje)
+141029.0,luque
+141190.0,brinkmann
+141442.0,dalmacio velez
+143239.0,colonia bremen
+220098.0,general capdevila
+220357.0,presidencia de la plaza
+220406.0,puerto vilelas
+268105.0,facundo
+260161.0,rio pico
+380014.0,abra pampa
+386182.0,maimara
+420147.0,general pico
+460070.0,general juan facundo quiroga
+500098.0,san martin
+500105.0,san rafael
+540077.0,loreto
+540490.0,mojon grande
+540525.0,25 de mayo
+580007.0,alumine
+625070.0,mencuen
+620182.0,villa regina
+660070.0,san lorenzo
+660252.0,tolar grande
+700049.0,iglesia
+746126.0,juan llerena
+749175.0,fortin el patria
+740119.0,juana koslay
+822532.0,theobald
+822567.0,santa rosa de calchines
+822595.0,cañada del ucle
+822665.0,labordeboy
+822672.0,lazzarino
+822707.0,murphy
+822714.0,san eduardo
+822868.0,villa ana
+823232.0,san mariano
+823288.0,gato colorado
+823351.0,acebal
+820203.0,perez
+823589.0,las avispas
+823694.0,cacique ariacaiquin
+823841.0,san fabian
+823862.0,angeloni
+823876.0,colonia dolores
+823883.0,esther
+823953.0,san mart
+823974.0,videla
+824205.0,toba
+908063.0,benjamin araoz y el tajamar
+908161.0,alpachiri y el molino
+900091.0,municipalidad de aguilares
+908546.0,santa cruz y la tuna
+908322.0,manuel garcia fernandez
+908329.0,quilmes y los sueldos
+908371.0,san pablo y villa nougues
+820084.0,villa cañas
+265007.0,gualjaina
+386112.0,rosario de rio grande
+386210.0,caspala
+380133.0,fraile pintado
+425014.0,agustoni
+340238.0,palo santo
+380077.0,perico
+500042.0,la paz
+540154.0,eldorado
+540399.0,obera
+580098.0,chos malal
+585119.0,paso aguerre
+660266.0,metan
+822441.0,empalme villa constitucion
+822616.0,chapuy
+822742.0,santa isabel
+822777.0,el araza
+823267.0,sarmiento
+823344.0,villa minetti
+823407.0,general lagos
+823673.0,villa saralegui
+824051.0,carlos pellegrini
+824135.0,traill
+900028.0,municipalidad de banda del rio sali
+908434.0,sargento moya
+908483.0,santa ana
+908553.0,villa de chicligasta
+908574.0,colalao del valle
+580063.0,plaza huincul
+822448.0,general gelly
+141253.0,freyre
+340147.0,san martin dos
+420413.0,winifreda
+425140.0,sarah
+580049.0,cutral co
+580133.0,villa la angostura
+660287.0,seclantas
+660350.0,el potrero
+700070.0,pocito
+746049.0,fraga
+822063.0,chañar ladeado
+822399.0,virginia
+822959.0,arroyo leyes
+823162.0,progreso
+823659.0,soledad
+820238.0,san javier
+823771.0,diaz
+820273.0,carcaraña
+824149.0,fortin olmos
+908616.0,los nogales
+500014.0,general alvear
+220371.0,margarita belen
+386217.0,pampichuela
+141064.0,pozo del molle
+625098.0,naupa huen
+823029.0,sauce viejo
+823036.0,cavour
+942007.0,tolhuin
+260028.0,el maiten
+625028.0,el manso
+740070.0,justo daract
+749007.0,la punta
+822315.0,presidente roca
+820189.0,funes
+660091.0,chicoana
+660007.0,apolinario saravia
+143085.0,villa del prado
+140217.0,del campillo
+420056.0,bernasconi
+540308.0,garuhape
+500007.0,capital
