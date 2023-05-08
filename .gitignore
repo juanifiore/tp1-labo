@@ -1,6 +1,6 @@
 leer.py
 pp.py
-3FN/
+3FN/*/.csv
 TablasOriginales/w_median_depto_priv_clae2.csv
 t.txt
-TablasLimpias/
+TablasLimpias/*.csv

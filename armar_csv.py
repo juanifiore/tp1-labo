@@ -8,11 +8,12 @@ En este codigo modificaremos mediante Pandas y SQL los .csv para que se encuentr
 tambien editaremos datos erroneos que contengan o eliminaremos informacion duplicada o inservible, ya sea mediante SQL, Pandas o manualmente
 mediante la planilla excel. 
 
-ACLARACIONES: 1) Es necesario tener todos los .csv a utilizar en el mismo directorio donde se ejecutara el programa.
+ACLARACIONES: 1) Es necesario tener todos los .csv originales a utilizar en una carpeta llamada TablasOriginales, el mismo directorio donde se ejecutara el programa.
 Al correr el codigo se crean todas las nuevas tablas. Para que sea mas organizado, 
 los nuevos .csv se guardaran en subcarpetas dentro del directorio actual donde se ejecuta el programa, 
 por lo tanto es necesario tener creada de antemano una carpeta (dentro del mismo directorio  que se encuentre este 
 programa) llamada '3FN', y que adentro contenga las carpetas 'diccionario_clases', 'diccionario_depto', 'padron', 'salarios', 'localidades'.
+A su vez, los .csv limpios que usaremos en las consultas se guardaran en la carpeta TablasLimpias
 
 2) Para que el programa sea mas claro, y tambien poder ver claramente cada modificacion hecha a los .csv, separaremos el codigo por cada paso
 para llegar a los .csv en 3FN y con todos los errores corregidos, en lugar de juntar varias modificaciones en uno solo algoritmo. Creemos que esto
