@@ -90,7 +90,7 @@ diccionario_departamentos.to_csv('./TablasLimpias/departamentos.csv', index=Fals
 
 # 4) Creamos tabla secundaria 'provincias'
 # PK: ['id_provincia']
-provincias = sql^ '''   SELECT DISTINCT id_provincia_indec AS id_provincia, nombre_provincia_indec AS provincias_nombre
+provincias = sql^ '''   SELECT DISTINCT id_provincia_indec AS id_provincia, nombre_provincia_indec AS provincia_nombre
                         FROM diccionario_depto '''
 provincias.to_csv('./3FN/diccionario_depto/provincias.csv',index=False)
 provincias.to_csv('./TablasLimpias/provincias.csv',index=False)
