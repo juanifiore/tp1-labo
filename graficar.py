@@ -3,17 +3,33 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import pandas as pd
 import numpy as np
+import os
 
 #categorias.csv      departamentos.csv  establecimiento_rubro.csv  localidades_censales.csv  padron_operadores.csv  produce.csv    provincias.csv  salarios.csv
 #certificadoras.csv  dicc_clases.csv    letra.csv                  municipios.csv            paises.csv             productos.csv  rubros.csv
 
-padron_operadores = pd.read_csv('./TablasLimpias/padron_operadores.csv')
-departamentos = pd.read_csv('./TablasLimpias/departamentos.csv')
-provincias = pd.read_csv('./TablasLimpias/provincias.csv')
-produce = pd.read_csv('./TablasLimpias/produce.csv')
-productos = pd.read_csv('./TablasLimpias/productos.csv')
-salarios = pd.read_csv('./TablasLimpias/salarios.csv')
-establecimiento_rubro = pd.read_csv('./TablasLimpias/establecimiento_rubro.csv')
+#padron_operadores = pd.read_csv('./TablasLimpias/padron_operadores.csv')
+#departamentos = pd.read_csv('./TablasLimpias/departamentos.csv')
+#provincias = pd.read_csv('./TablasLimpias/provincias.csv')
+#produce = pd.read_csv('./TablasLimpias/produce.csv')
+#productos = pd.read_csv('./TablasLimpias/productos.csv')
+#salarios = pd.read_csv('./TablasLimpias/salarios.csv')
+#establecimiento_rubro = pd.read_csv('./TablasLimpias/establecimiento_rubro.csv')
+
+# Funcion para leer los csv del directorio TablasLimpias
+
+csv_limpios = os.listdir('./TablasLimpias')
+csv_limpios.remove('.gitkeep')
+lista_nombres = []
+for csv in csv_limpios:
+    nombre = csv.split('.')[0]
+    lista_nombres.append(nombre)
+    globals()[nombre] = pd.read_csv(os.path.join('./TablasLimpias/',csv))
+
+print('Lista de DataFrame creados a partir de TablasLimpias:')
+print(lista_nombres)
+
+
 
 # Cantidad de operadores por provincia
 
@@ -50,23 +66,35 @@ ultimoSalario = sql ^ """
                     FROM salarios 
                     WHERE MONTH(CAST(fecha AS date)) = '12'
                     """
-
 consultaSQL3 = """
                 SELECT DISTINCT provincia_nombre, count(*) as cantidadEmpC, AVG(salario) as salarioPromedio
                 FROM padron_operadores AS p1
                 NATURAL JOIN departamentos 
                 NATURAL JOIN provincias
                 NATURAL JOIN ultimoSalario
-                INNER JOIN establecimiento_rubro as e1
-                ON p1.razon_social = e1.razon_social AND p1.establecimiento = e1.establecimiento
+                NATURAL JOIN establecimiento_rubro
                 WHERE fecha LIKE '2022%'
-                GROUP BY provincia_nombre, rubros;
+                GROUP BY provincia_nombre, rubros
+                ORDER BY provincia_nombre
+            """
+
+
+consultaSQL33 = """
+                SELECT DISTINCT provincia_nombre, count(*) as cantidadEmpC, AVG(salario) as salarioPromedio
+                FROM padron_operadores AS p1
+                NATURAL JOIN departamentos 
+                NATURAL JOIN provincias
+                NATURAL JOIN (SELECT * FROM salarios WHERE MONTH(CAST(fecha AS date)) = '12')
+                NATURAL JOIN establecimiento_rubro
+                WHERE fecha LIKE '2022%'
+                GROUP BY provincia_nombre, rubros
+                ORDER BY provincia_nombre
             """
 
 relacionCantidadSalario = sql ^ consultaSQL3
 df = sql ^ consultaSQL3
 
-sns.set_style('whitegrid')
+sns.set_style('darkgrid')
 ax1 = sns.barplot(x='provincia_nombre', y='salarioPromedio', data=df, color='blue')
 ax2 = ax1.twinx()
 sns.barplot(x='provincia_nombre', y='cantidadEmpC', data=df, color='red')
@@ -78,8 +106,10 @@ ax1.set_title('Relación entre salario promedio y cantidad de emprendimientos ce
 ax1.set_xlabel('Provincia')
 ax1.set_ylabel('Salario promedio')
 ax2.set_ylabel('Cantidad de emprendimientos certificados')
+plt.xticks(rotation=45)
 
 plt.show()
+plt.close()
 
 sns.barplot(x='provincia_nombre', y='salarioPromedio', data=df, color='blue')
 sns.barplot(x='provincia_nombre', y='cantidadEmpC', data=df, color='red')

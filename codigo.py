@@ -27,6 +27,11 @@ manualmente (detallados en cada caso), por lo que no concuerdan con los original
 
 import pandas as pd
 from inline_sql import sql
+import os
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Creamos los DataFrame de las tablas originales
 
 localidades = pd.read_csv('./TablasOriginales/localidades-censales.csv')
 salarios_median = pd.read_csv('./TablasOriginales/w_median_depto_priv_clae2.csv')
@@ -379,4 +384,152 @@ departamentos_salarios = sql^ ''' SELECT DISTINCT codigo_departamento_indec AS i
 salarios.to_csv('./3FN/salarios/salarios.csv', index=False)
 salarios.to_csv('./TablasLimpias/salarios.csv', index=False)
 departamentos_salarios.to_csv('./3FN/salarios/departamentos.csv', index=False)
+
+
+
+#==================================================================================
+#==================================================================================
+
+# CONSULTAS DE SQL SOBRE LAS TABLAS LIMPIAS
+
+#==================================================================================
+#==================================================================================
+
+
+# Creamos los DataFrame de los csv del directorio TablasLimpias
+# Los csv dentro del directorio son:
+#           categorias.csv      departamentos.csv  establecimiento_rubro.csv  localidades_censales.csv  padron_operadores.csv  produce.csv    provincias.csv  salarios.csv
+#           certificadoras.csv  dicc_clases.csv    letra.csv                  municipios.csv            paises.csv             productos.csv  rubros.csv
+
+# Se asignan a variables con el mismo nombre sin '.csv'
+
+csv_limpios = os.listdir('./TablasLimpias')
+csv_limpios.remove('.gitkeep')
+lista_nombres = []
+for csv in csv_limpios:
+    nombre = csv.split('.')[0]
+    lista_nombres.append(nombre)
+    globals()[nombre] = pd.read_csv(os.path.join('./TablasLimpias/',csv))
+
+
+#============================================================================
+# i) ¿Existen provincias que no presentan Operadores Orgánicos Certificados?
+# ¿En caso de que sí, cuántas y cuáles son?
+#============================================================================
+
+
+
+#============================================================================
+# ii) ¿Existen departamentos que no presentan Operadores Orgánicos
+# Certificados? ¿En caso de que sí, cuántos y cuáles son?
+#============================================================================
+
+
+
+#============================================================================
+# iii) ¿Cuál es la actividad que más operadores tiene?
+#============================================================================
+
+
+
+#============================================================================
+# iv) ¿Cuál fue el salario promedio de esa actividad en 2022? (si hay varios
+# registros de salario, mostrar el más actual de ese año)
+#============================================================================
+
+
+
+#============================================================================
+# v) ¿Cuál es el promedio anual de los salarios en Argentina y cual es su
+# desvío?, ¿Y a nivel provincial? ¿Se les ocurre una forma de que sean
+# comparables a lo largo de los años? ¿Necesitarían utilizar alguna fuente de
+# datos externa secundaria? ¿Cuál?
+#============================================================================
+
+
+
+#==================================================================================
+#==================================================================================
+#
+# FUNCIONES PARA GRAFICAR 
+#
+#==================================================================================
+#==================================================================================
+
+#============================================================================
+# i) Cantidad de Operadores por provincia.
+#============================================================================
+
+df = sql^ ''' SELECT * FROM padron_operadores NATURAL JOIN departamentos NATURAL JOIN provincias '''
+
+sns.countplot(y=df['provincia_nombre']).set(title='Cant. Operadores por provincia')
+plt.show()
+plt.close()
+
+#============================================================================
+# ii) Boxplot, por cada provincia, donde se pueda observar la cantidad de
+# productos por operador.
+#============================================================================
+
+
+
+#============================================================================
+# iii) Relación entre cantidad de emprendimientos certificados de cada provincia y
+# el salario promedio en dicha provincia (para la actividad) en el año 2022. En
+# caso de existir más de un salario promedio para ese año, mostrar el último
+# del año 2022.
+#============================================================================
+
+# Armamos DataFrame con las columnas Provincia, cantidad de emprendimientos y salario promedio por cada una de ellas.
+
+relacionEmprendimientosSalario = sql^   '''
+                                        SELECT DISTINCT provincia_nombre, count(*) as cantidadEmpC, AVG(salario) as salarioPromedio
+                                        FROM padron_operadores AS p1
+                                        NATURAL JOIN departamentos 
+                                        NATURAL JOIN provincias
+                                        NATURAL JOIN (SELECT * FROM salarios WHERE MONTH(CAST(fecha AS date)) = '12')
+                                        NATURAL JOIN establecimiento_rubro
+                                        WHERE fecha LIKE '2022%'
+                                        GROUP BY provincia_nombre, rubros
+                                        ORDER BY provincia_nombre
+                                        ''' 
+
+# Hacemos dos graficos para ver la dependencia de distintas maneras
+
+# Grafico barplot para ver relacion de dependencia por cada provincia
+#
+# Con la funcion .twinx() generamos dos ejes 'Y', uno para salarios y otro para cantidad de emprendimientos.
+# Luego generamos un barplot para cada uno.
+
+ejeSalario = sns.barplot(x='provincia_nombre', y='salarioPromedio', data=relacionEmprendimientosSalario, color='blue')
+ejeEmprendimientos = ejeSalario.twinx()
+sns.barplot(x='provincia_nombre', y='cantidadEmpC', data=relacionEmprendimientosSalario, color='red')
+
+ejeSalario.set_title('Relación entre salario promedio y cantidad de emprendimientos certificados')
+ejeSalario.set_xlabel('Provincia')
+ejeSalario.set_ylabel('Salario promedio')
+ejeEmprendimientos.set_ylabel('Cantidad de emprendimientos certificados')
+labels = ejeSalario.get_xticklabels()
+ejeSalario.set_xticklabels(labels, rotation=45, ha='right')     # rotamos nombres de provincias para mejor lectura
+
+plt.show()
+plt.close()
+
+# Grafico scatterplot para ver relacion de dependencia en general
+
+grafico = sns.scatterplot(data=relacionEmprendimientosSalario, x="salarioPromedio", y="cantidadEmpC", hue = "provincia_nombre", palette = "viridis")
+grafico.set_title('Relación entre salario promedio y cantidad de emprendimientos certificados')
+
+plt.show()
+plt.close()
+
+
+
+#============================================================================
+# iv) ¿Cuál es la distribución de los salarios promedio en Argentina? Realicen un
+# violinplot de los salarios promedio por provincia. Grafiquen el último ingreso
+# medio por provincia.
+#============================================================================
+
+
 
