@@ -615,28 +615,6 @@ map ={"salta": "NOROESTE", "jujuy": "NOROESTE", "tucuman": "NOROESTE", "catamarc
 relacionEmprendimientosSalario['region'] = relacionEmprendimientosSalario['provincia_nombre'].map(map)
 
 
-# Hacemos dos graficos para ver la dependencia de distintas maneras
-
-# Grafico barplot para ver relacion de dependencia por cada provincia
-#
-# Con la funcion .twinx() generamos dos ejes 'Y', uno para salarios y otro para cantidad de emprendimientos.
-# Luego generamos un barplot para cada uno.
-
-ejeSalario = sns.barplot(x='provincia_nombre', y='salarioPromedio', data=relacionEmprendimientosSalario, color='blue')
-ejeEmprendimientos = ejeSalario.twinx()
-sns.barplot(x='provincia_nombre', y='cantidadEmpC', data=relacionEmprendimientosSalario, color='red')
-
-ejeSalario.set_title('Relación entre salario promedio y cantidad de emprendimientos certificados')
-ejeSalario.set_xlabel('Provincia')
-ejeSalario.set_ylabel('Salario promedio')
-ejeEmprendimientos.set_ylabel('Cantidad de emprendimientos certificados')
-labels = ejeSalario.get_xticklabels()
-ejeSalario.set_xticklabels(labels, rotation=45, ha='right')     # rotamos nombres de provincias para mejor lectura
-
-plt.show()
-plt.close()
-
-# MI DUDA SOBRE ESTE GRÁFICO ES QUÉ SALARIO TE ESTA GRAFICANDO PORQUE NO TE GRAFICA POR ACTIVIDAD O NO?
 
 # Grafico scatterplot para ver relacion de dependencia en general
 
@@ -701,25 +679,29 @@ plt.close()
 #============================================================================
 # v) 
 #============================================================================
+# Grafico barplot para ver relacion de dependencia por cada provincia
+#
+# Con la funcion .twinx() generamos dos ejes 'Y', uno para salarios y otro para cantidad de emprendimientos.
+# Luego generamos un barplot para cada uno.
 
-actividad_salario = sql^ '''SELECT rubros, AVG(salario) AS SalarioProm
-                            FROM padron
-                            NATURAL JOIN salarios
-                            NATURAL JOIN establecimiento_rubro
-                            NATURAL JOIN rubros
-                            GROUP BY rubros ''' 
+ejeSalario = sns.barplot(x='provincia_nombre', y='salarioPromedio', data=relacionEmprendimientosSalario, color='blue')
+ejeEmprendimientos = ejeSalario.twinx()
+sns.barplot(x='provincia_nombre', y='cantidadEmpC', data=relacionEmprendimientosSalario, color='red')
 
+ejeSalario.set_title('Relación entre salario promedio y cantidad de emprendimientos certificados')
+ejeSalario.set_xlabel('Provincia')
+ejeSalario.set_ylabel('Salario promedio')
+ejeEmprendimientos.set_ylabel('Cantidad de emprendimientos certificados')
+labels = ejeSalario.get_xticklabels()
+ejeSalario.set_xticklabels(labels, rotation=45, ha='right')     # rotamos nombres de provincias para mejor lectura
 
-sns.barplot( x = 'rubros', y = 'SalarioProm', data = actividad_salario)
 plt.show()
 plt.close()
+#============================================================================
+# vi) 
+#============================================================================
+# grafico relacion salario y cantidad de operadores por rubro
 
-df = sql^ '''SELECT * 
-                            FROM padron
-                            NATURAL JOIN salarios
-                            NATURAL JOIN establecimiento_rubro
-                            NATURAL JOIN rubros
-                             ''' 
 ejeSalario = sns.barplot(x='rubros', y='salarioPromedio', data=relacionEmprendimientosSalario, color='blue')
 ejeEmprendimientos = ejeSalario.twinx()
 sns.barplot(x='rubros', y='cantidadEmpC', data=relacionEmprendimientosSalario, color='yellow')
@@ -735,16 +717,6 @@ plt.show()
 plt.close()
 
 
-relacionEmprendimientosSalario = sql^   '''
-                                        SELECT DISTINCT provincia_nombre, rubros, count(*) as cantidadEmpC, AVG(salario) as salarioPromedio
-                                        FROM padron_operadores AS p1
-                                        NATURAL JOIN departamentos 
-                                        NATURAL JOIN provincias
-                                        NATURAL JOIN ultimoSalario
-                                        NATURAL JOIN establecimiento_rubro
-                                        WHERE fecha LIKE '2022%'
-                                        GROUP BY provincia_nombre, rubros
-                                        ORDER BY provincia_nombre
-                                        ''' 
+
 
 
