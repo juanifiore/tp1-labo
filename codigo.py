@@ -25,6 +25,22 @@ manualmente (detallados en cada caso), por lo que no concuerdan con los original
 4) Los caracteres de las columnas de los .csv que usaremos para hacer JOIN estaran en minuscula y sin tildes para evitar problemas de matching
 '''
 
+# Consultas: 
+    # la consulta IV hay que ver con cual nos quedamos / por qué dan diferente
+# Gráficos: 
+    # deje una duda en el III 
+    
+# me fije que siempre usaramos tierra del fuego 
+
+#%%
+#==================================================================================
+#==================================================================================
+
+# MODIFICACIÓN Y ARMADO DE LAS TABLAS EN 3FN 
+
+#==================================================================================
+#==================================================================================
+
 import pandas as pd
 from inline_sql import sql
 import os
@@ -123,7 +139,7 @@ localidades = sql^ '''  SELECT categoria, centroide_lat, centroide_lon, departam
                         FROM localidades
                         '''
 # 2) Creamos diccionario para reemplazar errores por su valor correcto
-diccionario_errores_loc = ({"CABA": "Ciudad autónoma de Buenos Aires"})  
+diccionario_errores_loc = ({'caba' : 'ciudad autonoma de buenos aires'})  
 localidades['departamento_nombre'] = localidades['departamento_nombre'].replace(diccionario_errores_loc) 
 
 # 3) Creamos tabla principal en 3FN 'localidades_censales'
@@ -180,11 +196,9 @@ padron = sql^ '''   SELECT pais_id, pais, provincia_id,
 # 1) Armamos diccionario a mano para reemplazar valores errados en 'departamento' y 'provincia' por los correctos
 diccionario_errores_depto = {'carmen de patagones': 'patagones', 'ciudad autonoma buenos aires': 'ciudad autonoma de buenos aires','pigue': 'saavedra', 'villalonga': 'patagones', 'mar del plata':'general pueyrredon', 'guemes':'general guemes', 'centenario':'confluencia', 'san pedro de jujuy':'san pedro', 'villa martelli': 'vicente lopez', 'san miguel de tucuman':'capital', 'salta': 'capital', 'salta capital':'capital', 'ticino':'general san martin', 'cordoba':'capital','cordoba capital':'capital', 'plottier':'confluencia' }
 
-diccionario_errores_prov = ({"TIERRA DEL FUEGO": "Tierra del Fuego, Antártida e Islas del Atlántico Sur"})
 
 # 2) Reemplazamos los valores usando el diccionario
 padron['departamento']= padron['departamento'].replace(diccionario_errores_depto)
-padron['provincia'] = padron['provincia'].replace(diccionario_errores_prov)
 
 # 3) Eliminamos valores 'NC' de la columna 'establecimiento'
 padron = sql^ '''SELECT * FROM padron WHERE establecimiento != 'nc' '''
@@ -386,7 +400,7 @@ salarios.to_csv('./TablasLimpias/salarios.csv', index=False)
 departamentos_salarios.to_csv('./3FN/salarios/departamentos.csv', index=False)
 
 
-
+#%%
 #==================================================================================
 #==================================================================================
 
@@ -418,26 +432,102 @@ for csv in csv_limpios:
 #============================================================================
 
 
+provincias_sin_op_organicos = sql^ """SELECT DISTINCT p.id_provincia, p.provincia_nombre
+                                    FROM provincias p 
+                                    WHERE p.id_provincia NOT IN (
+                                        SELECT DISTINCT d.id_provincia
+                                        FROM departamentos d 
+                                        WHERE d.id_depto IN (
+                                            SELECT DISTINCT o.id_depto
+                                            FROM padron_operadores o
+                                            ))   
+                                    ORDER BY p.provincia_nombre
+                                    """     
+
 
 #============================================================================
 # ii) ¿Existen departamentos que no presentan Operadores Orgánicos
 # Certificados? ¿En caso de que sí, cuántos y cuáles son?
 #============================================================================
 
-
+departamentos_sin_op_organicos = sql^ """SELECT DISTINCT d.departamento_nombre, p.provincia_nombre
+                                    FROM departamentos d 
+                                    INNER JOIN provincias p
+                                    ON d.id_provincia = p.id_provincia
+                                    WHERE d.id_depto NOT IN (
+                                        SELECT DISTINCT o.id_depto
+                                        FROM padron_operadores o
+                                        )
+                                    ORDER BY d.departamento_nombre, p.provincia_nombre
+                                    """
 
 #============================================================================
 # iii) ¿Cuál es la actividad que más operadores tiene?
 #============================================================================
 
+rubro_con_cantidad = sql^''' SELECT DISTINCT r.rubros as rubros, count(*) as cantidad
+                     FROM establecimiento_rubro r 
+                     INNER JOIN padron_operadores p
+                     ON p.razon_social = r.razon_social and p.establecimiento = p.establecimiento
+                     GROUP BY r.rubros
+                     ORDER BY r.rubros
+                     '''
 
+act_mas_op = sql^''' SELECT DISTINCT r1.rubros as actividad
+                     FROM rubro_con_cantidad r1
+                     WHERE r1.cantidad >= ALL (
+                         SELECT R2.cantidad 
+                         FROM rubro_con_cantidad R2
+                         WHERE r2.rubros !=r1.rubros
+                         )
+                     GROUP BY r1.rubros 
+                     ORDER BY r1.rubros
+'''
 
 #============================================================================
 # iv) ¿Cuál fue el salario promedio de esa actividad en 2022? (si hay varios
 # registros de salario, mostrar el más actual de ese año)
 #============================================================================
 
+#En las consultas y visualizaciones, nos piden que trabajemos por el ultimo salario promedio. Hacemos una consulta para solo quedarnos con las entradas del mes de diciembre.
 
+ultimoSalario = sql ^ """
+                    SELECT *
+                    FROM salarios 
+                    WHERE MONTH(CAST(fecha AS date)) = '12'
+                    """
+
+actividad = act_mas_op['actividad'][0]
+id_depto_dedicados_a_actividad = sql^''' SELECT DISTINCT p.id_depto as id_depto
+                                     FROM padron_operadores p
+                                     INNER JOIN establecimiento_rubro r 
+                                     ON r.razon_social = p.razon_social and r.establecimiento = p.establecimiento 
+                                     WHERE r.rubros = $actividad
+                                     GROUP BY p.id_depto
+                                     '''
+
+salarios_actividad_2022 = sql^'''SELECT DISTINCT fecha, id_depto, clae2, salario
+                                 FROM ultimoSalario s
+                                 WHERE s.fecha LIKE '%2022%' and s.id_depto IN (
+                                     SELECT DISTINCT a.id_depto
+                                     FROM id_depto_dedicados_a_actividad a
+                                     )
+                                 GROUP BY fecha, id_depto, salario, clae2
+                                 ORDER BY fecha ASC, id_depto ASC
+                                 '''
+                                
+salario_promedio_2022 = sql^'''SELECT AVG(salario) FROM salarios_actividad_2022'''                            
+
+consultaSQL41 = """
+                SELECT DISTINCT AVG(salario) AS salarioPromedio2022
+                FROM padron_operadores as p1
+                INNER JOIN establecimiento_rubro as r1
+                ON p1.establecimiento = r1.establecimiento and p1.razon_social = r1.razon_social
+                INNER JOIN ultimoSalario
+                ON p1.id_depto = ultimoSalario.id_depto
+                WHERE rubros = 'fruticultura' AND fecha LIKE '%2022%'
+            """
+promedioSalarios = sql ^ consultaSQL41
 
 #============================================================================
 # v) ¿Cuál es el promedio anual de los salarios en Argentina y cual es su
@@ -446,8 +536,21 @@ for csv in csv_limpios:
 # datos externa secundaria? ¿Cuál?
 #============================================================================
 
+promedioDesvioNacional =sql ^ """
+                SELECT DISTINCT AVG(salario) as salarioPromedio, STDDEV(salario) as desvio,  YEAR(CAST(fecha AS date))
+                FROM salarios             
+                GROUP BY  YEAR(CAST(fecha AS date))
+            """
 
+promedioDesvioProvincial =sql ^ """
+                SELECT DISTINCT  YEAR(CAST(fecha AS date)) as año, AVG(salario) as salarioPromedio, STDDEV(salario) as desvio, id_provincia
+                FROM salarios
+                INNER JOIN departamentos
+                ON salarios.id_depto = departamentos.id_depto
+                GROUP BY id_provincia,  YEAR(CAST(fecha AS date))
+            """
 
+#%%
 #==================================================================================
 #==================================================================================
 #
@@ -460,18 +563,30 @@ for csv in csv_limpios:
 # i) Cantidad de Operadores por provincia.
 #============================================================================
 
-df = sql^ ''' SELECT * FROM padron_operadores NATURAL JOIN departamentos NATURAL JOIN provincias '''
+dfi = sql^ ''' SELECT DISTINCT id_provincia, provincia_nombre, count(*) as cantidadDeOperadores FROM padron_operadores NATURAL JOIN departamentos NATURAL JOIN provincias GROUP BY id_provincia, provincia_nombre ORDER BY cantidadDeOperadores ASC'''
 
-sns.countplot(y=df['provincia_nombre']).set(title='Cant. Operadores por provincia')
+sns.barplot(x = "cantidadDeOperadores", y = "provincia_nombre", data = dfi)
 plt.show()
 plt.close()
+
 
 #============================================================================
 # ii) Boxplot, por cada provincia, donde se pueda observar la cantidad de
 # productos por operador.
 #============================================================================
 
-
+cant_prod_por_operador = sql^'''SELECT DISTINCT provincia_nombre, count(*) as cantidad 
+                                FROM produce 
+                                NATURAL JOIN padron_operadores
+                                NATURAL JOIN departamentos
+                                NATURAL JOIN provincias 
+                                GROUP BY razon_social, establecimiento, provincia_nombre
+                                '''
+                          
+sns.boxplot(x ='cantidad', y ='provincia_nombre', data = cant_prod_por_operador)
+plt.show()
+plt.close()
+            
 
 #============================================================================
 # iii) Relación entre cantidad de emprendimientos certificados de cada provincia y
@@ -483,16 +598,22 @@ plt.close()
 # Armamos DataFrame con las columnas Provincia, cantidad de emprendimientos y salario promedio por cada una de ellas.
 
 relacionEmprendimientosSalario = sql^   '''
-                                        SELECT DISTINCT provincia_nombre, count(*) as cantidadEmpC, AVG(salario) as salarioPromedio
+                                        SELECT DISTINCT provincia_nombre, rubros, count(*) as cantidadEmpC, AVG(salario) as salarioPromedio
                                         FROM padron_operadores AS p1
                                         NATURAL JOIN departamentos 
                                         NATURAL JOIN provincias
-                                        NATURAL JOIN (SELECT * FROM salarios WHERE MONTH(CAST(fecha AS date)) = '12')
+                                        NATURAL JOIN ultimoSalario
                                         NATURAL JOIN establecimiento_rubro
                                         WHERE fecha LIKE '2022%'
                                         GROUP BY provincia_nombre, rubros
                                         ORDER BY provincia_nombre
                                         ''' 
+
+   
+map ={"salta": "NOROESTE", "jujuy": "NOROESTE", "tucuman": "NOROESTE", "catamarca" : "NOROESTE", "formosa":"CHACO", "chaco":"CHACO", "santiago del estero":"CHACO", "santa fe" :"CHACO", "entre rios":"MESOPOTAMIA", "misiones":"MESOPOTAMIA", "corrientes": "MESOPOTAMIA", "la rioja":"CUYO", "san juan":"CUYO", "mendoza":"CUYO", "neuquen":"PATAGONIA", "rio negro":"PATAGONIA", "chubut":"PATAGONIA", "santa cruz":"PATAGONIA", "tierra del fuego":"PATAGONIA", "cordoba":"REGION PAMPEANA", "san luis":"REGION PAMPEANA", "la pampa":"REGION PAMPEANA", "buenos aires" :"REGION PAMPEANA"}
+                                       
+relacionEmprendimientosSalario['region'] = relacionEmprendimientosSalario['provincia_nombre'].map(map)
+
 
 # Hacemos dos graficos para ver la dependencia de distintas maneras
 
@@ -515,14 +636,23 @@ ejeSalario.set_xticklabels(labels, rotation=45, ha='right')     # rotamos nombre
 plt.show()
 plt.close()
 
+# MI DUDA SOBRE ESTE GRÁFICO ES QUÉ SALARIO TE ESTA GRAFICANDO PORQUE NO TE GRAFICA POR ACTIVIDAD O NO?
+
 # Grafico scatterplot para ver relacion de dependencia en general
 
-grafico = sns.scatterplot(data=relacionEmprendimientosSalario, x="salarioPromedio", y="cantidadEmpC", hue = "provincia_nombre", palette = "viridis")
-grafico.set_title('Relación entre salario promedio y cantidad de emprendimientos certificados')
+grafico = sns.scatterplot(data=relacionEmprendimientosSalario, x="salarioPromedio", y="cantidadEmpC", hue = "provincia_nombre",  palette = "rainbow")
+grafico.set_title('Relación entre salario promedio y cantidad de emprendimientos certificados por provincias')
 
 plt.show()
 plt.close()
 
+# ahora lo hacemos por regiones
+
+grafico = sns.scatterplot(data=relacionEmprendimientosSalario, x="salarioPromedio", y="cantidadEmpC", hue = "region", palette = "rainbow")
+grafico.set_title('Relación entre salario promedio y cantidad de emprendimientos certificados por region')
+
+plt.show()
+plt.close()
 
 
 #============================================================================
@@ -531,5 +661,90 @@ plt.close()
 # medio por provincia.
 #============================================================================
 
+# distribución de los salarios promedio en argentina desde 2014 a 2022
+sns.violinplot(data = promedioDesvioProvincial ,
+               x = 'id_provincia' , y = 'salarioPromedio' ,  cut=0,  bw=.15).set(xlabel = 'provincia' , ylabel='salarioPromedioAnual')
+plt.show()
+plt.close()
+
+# distribución de los salarios promedio en argentina en 2022
+promedioDesvioProvincial2 = sql^'''SELECT DISTINCT * FROM promedioDesvioProvincial WHERE año = '2022' '''
+
+sns.barplot(x = "id_provincia", y = "salarioPromedio", data = promedioDesvioProvincial2)
+plt.show()
+plt.close()
+
+
+sns.barplot( x = 'region', y = 'salarioPromedio', data = relacionEmprendimientosSalario)
+plt.show()
+plt.close()
+
+# distribución de los salarios promedio en argentina desde 2014 a 2022 considerando el mes de diciembre
+
+promedioDesvioProvincialDiciembre = sql ^ """
+                SELECT DISTINCT  YEAR(CAST(fecha AS date)) as año, AVG(salario) as salarioPromedio, STDDEV(salario) as desvio, id_provincia
+                FROM ultimoSalario s
+                INNER JOIN departamentos
+                ON s.id_depto = departamentos.id_depto
+                GROUP BY id_provincia,  YEAR(CAST(fecha AS date))
+            """
+
+sns.violinplot(data = promedioDesvioProvincialDiciembre ,
+               x = 'id_provincia' , y = 'salarioPromedio' ,  cut=0,  bw=.15).set(xlabel = 'provincia' , ylabel='salarioPromedioDiciembre')
+plt.show()
+plt.close()
+
+#============================================================================
+#  GRAFICOS PARA LA CONCLUSION
+#============================================================================
+
+#============================================================================
+# v) 
+#============================================================================
+
+actividad_salario = sql^ '''SELECT rubros, AVG(salario) AS SalarioProm
+                            FROM padron
+                            NATURAL JOIN salarios
+                            NATURAL JOIN establecimiento_rubro
+                            NATURAL JOIN rubros
+                            GROUP BY rubros ''' 
+
+
+sns.barplot( x = 'rubros', y = 'SalarioProm', data = actividad_salario)
+plt.show()
+plt.close()
+
+df = sql^ '''SELECT * 
+                            FROM padron
+                            NATURAL JOIN salarios
+                            NATURAL JOIN establecimiento_rubro
+                            NATURAL JOIN rubros
+                             ''' 
+ejeSalario = sns.barplot(x='rubros', y='salarioPromedio', data=relacionEmprendimientosSalario, color='blue')
+ejeEmprendimientos = ejeSalario.twinx()
+sns.barplot(x='rubros', y='cantidadEmpC', data=relacionEmprendimientosSalario, color='yellow')
+
+ejeSalario.set_title('Relación por rubro entre salario promedio y cantidad de emprendimientos certificados')
+ejeSalario.set_xlabel('Rubro')
+ejeSalario.set_ylabel('Salario promedio')
+ejeEmprendimientos.set_ylabel('Cantidad de emprendimientos certificados')
+labels = ejeSalario.get_xticklabels()
+ejeSalario.set_xticklabels(labels, rotation=45, ha='right')     # rotamos nombres de provincias para mejor lectura
+
+plt.show()
+plt.close()
+
+
+relacionEmprendimientosSalario = sql^   '''
+                                        SELECT DISTINCT provincia_nombre, rubros, count(*) as cantidadEmpC, AVG(salario) as salarioPromedio
+                                        FROM padron_operadores AS p1
+                                        NATURAL JOIN departamentos 
+                                        NATURAL JOIN provincias
+                                        NATURAL JOIN ultimoSalario
+                                        NATURAL JOIN establecimiento_rubro
+                                        WHERE fecha LIKE '2022%'
+                                        GROUP BY provincia_nombre, rubros
+                                        ORDER BY provincia_nombre
+                                        ''' 
 
 
