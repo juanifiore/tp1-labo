@@ -1,4 +1,5 @@
 leer.py
+*.csv#
 *.swp
 pp.py
 3FN/*/*.csv
