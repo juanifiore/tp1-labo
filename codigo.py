@@ -29,6 +29,8 @@ manualmente (detallados en cada caso), por lo que no concuerdan con los original
     # la consulta IV hay que ver con cual nos quedamos / por qué dan diferente
 # Gráficos: 
     # deje una duda en el III 
+    
+# me fije que siempre usaramos tierra del fuego 
 
 #%%
 #==================================================================================
@@ -194,11 +196,9 @@ padron = sql^ '''   SELECT pais_id, pais, provincia_id,
 # 1) Armamos diccionario a mano para reemplazar valores errados en 'departamento' y 'provincia' por los correctos
 diccionario_errores_depto = {'carmen de patagones': 'patagones', 'ciudad autonoma buenos aires': 'ciudad autonoma de buenos aires','pigue': 'saavedra', 'villalonga': 'patagones', 'mar del plata':'general pueyrredon', 'guemes':'general guemes', 'centenario':'confluencia', 'san pedro de jujuy':'san pedro', 'villa martelli': 'vicente lopez', 'san miguel de tucuman':'capital', 'salta': 'capital', 'salta capital':'capital', 'ticino':'general san martin', 'cordoba':'capital','cordoba capital':'capital', 'plottier':'confluencia' }
 
-diccionario_errores_prov = ({"TIERRA DEL FUEGO": "Tierra del Fuego, Antártida e Islas del Atlántico Sur"})
 
 # 2) Reemplazamos los valores usando el diccionario
 padron['departamento']= padron['departamento'].replace(diccionario_errores_depto)
-padron['provincia'] = padron['provincia'].replace(diccionario_errores_prov)
 
 # 3) Eliminamos valores 'NC' de la columna 'establecimiento'
 padron = sql^ '''SELECT * FROM padron WHERE establecimiento != 'nc' '''
